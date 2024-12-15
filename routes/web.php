@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
@@ -47,8 +48,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-// Admin Group Middlewares
 Route::middleware(['auth', 'roles:admin'])->group(function () {
+
+    // Admin Group Middlewares
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])
         ->name('admin.dashboard');
 
@@ -66,6 +68,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])
         ->name('admin.password.update');
+
+    // Category Group
+    Route::controller(CategoryController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::resource('categories', CategoryController::class);
+    });
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])
