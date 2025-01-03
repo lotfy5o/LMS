@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -72,6 +73,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // Category Group
     Route::controller(CategoryController::class)->prefix('/back')->name('back.')->group(function () {
         Route::resource('categories', CategoryController::class);
+    });
+    // Category Group
+    Route::controller(SubCategoryController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::resource('SubCategories', SubCategoryController::class);
     });
 });
 
