@@ -51,10 +51,12 @@
                 <div class="menu-title">Manage Categories</div>
             </a>
             <ul>
-                <li> <a href="{{ route('back.categories.index') }}"><i class='bx bx-radio-circle'></i>All Categories</a>
+                <li> <a href="{{ route('back.categories.index') }}"><i class='bx bx-radio-circle'></i>Categories</a>
                 </li>
-                <li> <a href="{{ route('back.categories.create') }}"><i class='bx bx-radio-circle'></i>Add Category</a>
+                <li> <a href="{{ route('back.SubCategories.index') }}"><i
+                            class='bx bx-radio-circle'></i>SubCategories</a>
                 </li>
+
             </ul>
         </li>
         <li>
