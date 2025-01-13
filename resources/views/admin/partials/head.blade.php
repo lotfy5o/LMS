@@ -27,7 +27,7 @@
     {{-- Toaster for Messages --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Rocker - Bootstrap 5 Admin Dashboard Template</title>
 </head>

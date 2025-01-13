@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -74,14 +75,22 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(CategoryController::class)->prefix('/back')->name('back.')->group(function () {
         Route::resource('categories', CategoryController::class);
     });
-    // Category Group
+
+    // SubCategory Group
     Route::controller(SubCategoryController::class)->prefix('/back')->name('back.')->group(function () {
         Route::resource('SubCategories', SubCategoryController::class);
+    });
+
+    // Teachers Group
+    Route::controller(TeacherController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::resource('teachers', TeacherController::class);
+        Route::post('teachers/update/user/status', [TeacherController::class, 'UpdateUserStatus'])->name('update.user.status');
     });
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])
     ->name('admin.login');
+
 
 
 // Instructor Group Middlewares
@@ -107,3 +116,8 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])
     ->name('instructor.login');
+
+Route::get('/become/instructor', [InstructorController::class, 'becomeInstructor'])
+    ->name('become.instructor');
+
+Route::post('/instructor/register', [InstructorController::class, 'InstructorRegister'])->name('instructor.register');
