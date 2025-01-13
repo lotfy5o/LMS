@@ -1,4 +1,10 @@
 <div class="sidebar-wrapper" data-simplebar="true">
+    @php
+    $id = Auth::user()->id;
+    $instructorId = App\Models\User::find($id);
+    $status = $instructorId->status;
+    @endphp
+
     <div class="sidebar-header">
         <div>
             <img src="{{asset('asset-back')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
@@ -42,6 +48,8 @@
                 </li>
             </ul>
         </li>
+
+        @if ($status == 1)
         <li class="menu-label">UI Elements</li>
 
         <li>
@@ -140,6 +148,9 @@
                 </li>
             </ul>
         </li>
+
+        @else
+        @endif
 
         <li>
             <a href="https://themeforest.net/user/codervent" target="_blank">
