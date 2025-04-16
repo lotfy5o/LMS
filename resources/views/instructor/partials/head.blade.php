@@ -24,5 +24,10 @@
     <link rel="stylesheet" href="{{asset('asset-back')}}/css/header-colors.css" />
     {{-- Toaster for Messages --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <!-- Datatable -->
+    <link href="{{asset('asset-back')}}/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <!-- End Datatable -->
+
     <title>Instructor Dashboard</title>
 </head>
