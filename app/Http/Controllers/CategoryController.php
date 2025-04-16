@@ -36,6 +36,7 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
 
+            // grap the image, rename it, store it in a collection called categories
             $category->addMediaFromRequest('image')
                 ->usingFileName(time() . '.' . $request->file('image')->getClientOriginalExtension())
                 ->toMediaCollection('categories');

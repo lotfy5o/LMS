@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +113,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 
     Route::post('/instructor/password/update', [InstructorController::class, 'InstructorPasswordUpdate'])
         ->name('instructor.password.update');
+
+    Route::controller(CourseController::class)->group(function () {
+        Route::resource('courses', CourseController::class);
+        Route::get('/subcategory/ajax/{category_id}', 'GetSubCategory');
+        Route::post('/courses/{course}/goal/update', 'UpdateCourseGoal')->name('update.course.goal');
+    });
 });
 
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])

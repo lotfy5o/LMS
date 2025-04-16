@@ -4,21 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Category extends Model implements HasMedia
+class Course extends Model implements HasMedia
 {
     use HasFactory, HasSlug, InteractsWithMedia;
-
-    protected $table = 'categories';
-
-    protected $guarded = ['id'];
-
+    protected $guarded = [];
 
     public function getSlugOptions(): SlugOptions
     {
@@ -31,10 +26,11 @@ class Category extends Model implements HasMedia
     {
         return 'slug';
     }
+
     public function registerMediaCollections(): void
     {
         $this
-            ->addMediaCollection('categories')
+            ->addMediaCollection('courses_images')
             ->useDisk('upload')
             ->registerMediaConversions(function (Media $media) {
                 $this
@@ -49,13 +45,13 @@ class Category extends Model implements HasMedia
             });
     }
 
-    public function subCategories()
+    public function category()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function courses()
+    public function goals()
     {
-        return $this->hasMany(Course::class);  // A category can have many courses
+        return $this->hasMany(CourseGoal::class);
     }
 }
