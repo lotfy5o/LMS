@@ -56,7 +56,7 @@
                                         <td>{{ $course->discount_price }}</td>
                                         <td>
                                             <a href="{{ route('courses.edit', ['course' => $course]) }}"
-                                                class="btn btn-info px-5">Edit </a>
+                                                class="btn btn-info"><i class="lni lni-eraser"></i> </a>
 
                                             <form
                                                 action="{{ route('courses.destroy', ['course' => $course]) }}"
@@ -65,11 +65,15 @@
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="button" class="btn btn-danger px-5"
+                                                <button type="button" class="btn btn-danger"
                                                     onclick="confirmDelete({{ $course->id }})">
-                                                    Delete
+                                                    <i class="lni lni-trash"></i>
                                                 </button>
                                             </form>
+
+                                            <a href="{{ route('courses.sections.create', ['course' => $course]) }}"
+                                                class="btn btn-warning" title="Lecture"><i
+                                                    class="lni lni-list"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach

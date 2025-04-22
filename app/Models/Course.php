@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CourseLecture;
+use App\Models\CourseSection;
+use Spatie\Sluggable\HasSlug;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class Course extends Model implements HasMedia
 {
@@ -53,5 +55,22 @@ class Course extends Model implements HasMedia
     public function goals()
     {
         return $this->hasMany(CourseGoal::class);
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(CourseSection::class);
+    }
+
+    public function lectures()
+    {
+        return $this->hasManyThrough(
+            CourseLecture::class, // Final model
+            CourseSection::class, // Intermediate model
+            'course_id',          // Foreign key on course_sections table
+            'section_id',         // Foreign key on course_lectures table
+            'id',                 // Local key on courses table
+            'id'                  // Local key on course_sections table
+        );
     }
 }

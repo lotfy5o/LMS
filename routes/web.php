@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CourseLecture;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\CourseLectureController;
+use App\Http\Controllers\CourseSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +122,10 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/subcategory/ajax/{category_id}', 'GetSubCategory');
         Route::post('/courses/{course}/goal/update', 'UpdateCourseGoal')->name('update.course.goal');
     });
+
+    Route::resource('courses.sections', CourseSectionController::class);
+    Route::resource('courses.lectures', CourseLectureController::class);
+    // Route::post('/save-lecture', [CourseLectureController::class, 'store']);
 });
 
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])
