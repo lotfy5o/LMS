@@ -1,13 +1,18 @@
-<script src="{{asset('asset-front')}}/js/jquery-3.4.1.min.js"></script>
-<script src="{{asset('asset-front')}}/js/bootstrap.bundle.min.js"></script>
-<script src="{{asset('asset-front')}}/js/bootstrap-select.min.js"></script>
-<script src="{{asset('asset-front')}}/js/owl.carousel.min.js"></script>
-<script src="{{asset('asset-front')}}/js/isotope.js"></script>
-<script src="{{asset('asset-front')}}/js/waypoint.min.js"></script>
-<script src="{{asset('asset-front')}}/js/jquery.counterup.min.js"></script>
-<script src="{{asset('asset-front')}}/js/fancybox.js"></script>
-<script src="{{asset('asset-front')}}/js/datedropper.min.js"></script>
-<script src="{{asset('asset-front')}}/js/emojionearea.min.js"></script>
-<script src="{{asset('asset-front')}}/js/tooltipster.bundle.min.js"></script>
-<script src="{{asset('asset-front')}}/js/jquery.lazy.min.js"></script>
-<script src="{{asset('asset-front')}}/js/main.js"></script>
+<script src="{{ asset('asset-front') }}/js/jquery-3.4.1.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/bootstrap-select.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/owl.carousel.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/isotope.js"></script>
+<script src="{{ asset('asset-front') }}/js/waypoint.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/jquery.counterup.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/fancybox.js"></script>
+<script src="{{ asset('asset-front') }}/js/datedropper.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/emojionearea.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/tooltipster.bundle.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/jquery.lazy.min.js"></script>
+<script src="{{ asset('asset-front') }}/js/main.js"></script>
+<script src="{{ asset('asset-front') }}/js/plyr.js"></script>
+
+<script>
+    var player = new Plyr('#player');
+</script>

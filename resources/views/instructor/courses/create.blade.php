@@ -31,20 +31,22 @@
 
                         <div class="form-group col-md-6">
                             <label for="input1" class="form-label">Course Name</label>
-                            <input type="text" name="name" class="form-control" id="input1">
+                            <input type="text" name="name" class="form-control" id="input1"
+                                value="{{ old('name') }}">
                             <x-validation-error field="name"></x-validation-error>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Course Title </label>
-                            <input type="text" name="title" class="form-control" id="input1">
+                            <label for="input2" class="form-label">Course Title </label>
+                            <input type="text" name="title" class="form-control" id="input2"
+                                value="{{ old('title') }}">
                             <x-validation-error field="title"></x-validation-error>
                         </div>
 
 
 
                         <div class="form-group col-md-6">
-                            <label for="input2" class="form-label">Course Image </label>
+                            <label for="image" class="form-label">Course Image </label>
                             <input class="form-control" name="image" type="file" id="image">
                             <x-validation-error field="image"></x-validation-error>
                         </div>
@@ -56,9 +58,10 @@
 
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Course Intro Video </label>
+                            <label for="video" class="form-label">Course Intro Video </label>
                             <input type="file" name="video" class="form-control"
                                 accept="video/mp4, video/webm">
+                            <x-validation-error field="video"></x-validation-error>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -66,7 +69,7 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Course Category </label>
+                            <label for="" class="form-label">Course Category </label>
                             <select name="category_id" class="form-select mb-3"
                                 aria-label="Default select example">
                                 <option selected="" disabled>Open this select menu</option>
@@ -81,7 +84,7 @@
 
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Course Subcategory </label>
+                            <label for="" class="form-label">Course Subcategory </label>
                             <select name="subcategory_id" class="form-select mb-3"
                                 aria-label="Default select example">
                                 <option selected="" disabled>Open this select menu</option>
@@ -92,7 +95,7 @@
 
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Certificate Available </label>
+                            <label for="" class="form-label">Certificate Available </label>
                             <select name="certificate" class="form-select mb-3"
                                 aria-label="Default select example">
                                 <option selected="" disabled>Open this select menu</option>
@@ -102,54 +105,54 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="input1" class="form-label">Course Label </label>
+                            <label for="" class="form-label">Course Label </label>
                             <select name="label" class="form-select mb-3"
                                 aria-label="Default select example">
                                 <option selected="" disabled>Open this select menu</option>
-                                <option value="Begginer">Begginer</option>
+                                <option value="Begginer">Beginner</option>
                                 <option value="Middle">Middle</option>
                                 <option value="Advance">Advance</option>
                             </select>
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label for="input1" class="form-label">Course Price </label>
+                            <label for="" class="form-label">Course Price </label>
                             <input type="text" name="selling_price" class="form-control"
-                                id="input1">
+                                id="input4">
                             <x-validation-error field="selling_price"></x-validation-error>
                         </div>
 
 
                         <div class="form-group col-md-3">
-                            <label for="input1" class="form-label">Discount Price </label>
+                            <label for="input5" class="form-label">Discount Price </label>
                             <input type="text" name="discount_price" class="form-control"
-                                id="input1">
+                                id="input5">
                         </div>
 
 
                         <div class="form-group col-md-3">
-                            <label for="input1" class="form-label">Duration </label>
+                            <label for="input6" class="form-label">Duration </label>
                             <input type="text" name="duration" class="form-control"
-                                id="input1">
+                                id="input6">
                         </div>
 
 
                         <div class="form-group col-md-3">
-                            <label for="input1" class="form-label">Resources </label>
+                            <label for="input7" class="form-label">Resources </label>
                             <input type="text" name="resources" class="form-control"
-                                id="input1">
+                                id="input7">
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="input1" class="form-label">Course Prerequisites </label>
-                            <textarea name="prerequisites" class="form-control" id="input11"
-                                placeholder="Prerequisites ..." rows="3"></textarea>
+                            <label for="input8" class="form-label">Course Prerequisites </label>
+                            <textarea name="prerequisites" class="form-control" id="input8"
+                                placeholder="Prerequisites ..." rows="3">{{ old('prerequisites') }}</textarea>
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label for="input1" class="form-label">Course Description </label>
+                            <label for="" class="form-label">Course Description </label>
                             <textarea name="description" class="form-control" id="myeditorinstance"
-                                placeholder="Write your Description here ..."></textarea>
+                                placeholder="Write your Description here ...">{{ old('description') }}</textarea>
                         </div>
 
 
@@ -179,9 +182,9 @@
                             <div class="col-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="bestseller"
-                                        value="1" id="flexCheckDefault">
+                                        value="1" id="flexCheckDefault1">
                                     <label class="form-check-label"
-                                        for="flexCheckDefault">BestSeller</label>
+                                        for="flexCheckDefault1">BestSeller</label>
                                 </div>
                             </div>
 
@@ -189,17 +192,17 @@
                             <div class="col-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="featured"
-                                        value="1" id="flexCheckDefault">
+                                        value="1" id="flexCheckDefault2">
                                     <label class="form-check-label"
-                                        for="flexCheckDefault">Featured</label>
+                                        for="flexCheckDefault2">Featured</label>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
-                                        name="highest_rated" value="1" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">Highest
+                                        name="highest_rated" value="1" id="flexCheckDefault3">
+                                    <label class="form-check-label" for="flexCheckDefault3">Highest
                                         Rated</label>
                                 </div>
                             </div>
@@ -265,43 +268,7 @@
 
 
 
-    {{-- Js Validation --}}
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            $('#myForm').validate({
-                rules: {
-                    name: {
-                        required: true,
-                    },
-                    title: {
-                        required: true,
-                    },
 
-                },
-                messages: {
-                    name: {
-                        required: 'Please Enter Course Name',
-                    },
-                    title: {
-                        required: 'Please Select Course Title',
-                    },
-
-
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-            });
-        });
-    </script> --}}
 
     <script type="text/javascript">
         $(document).ready(function() {

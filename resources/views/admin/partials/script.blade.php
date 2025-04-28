@@ -20,8 +20,21 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
+<script src="{{ asset('asset-back') }}/js/validate.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="{{ asset('asset-back') }}/js/code.js"></script>
+
+<!--Datatable-->
+<script src="{{ asset('asset-back') }}/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('asset-back') }}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
+<!--End Datatable-->
 
 <script>
     @if (Session::has('message'))
@@ -46,38 +59,20 @@
     @endif
 </script>
 
-<script src="{{ asset('asset-back') }}/js/bootstrap.bundle.min.js"></script>
-<!--plugins-->
-<script src="{{ asset('asset-back') }}/js/jquery.min.js"></script>
-<script src="{{ asset('asset-back') }}/plugins/simplebar/js/simplebar.min.js"></script>
-<script src="{{ asset('asset-back') }}/plugins/metismenu/js/metisMenu.min.js"></script>
-<script src="{{ asset('asset-back') }}/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-<script src="{{ asset('asset-back') }}/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#image-uploadify').imageuploadify();
-    })
-</script>
-<!--app JS-->
-<script src="{{ asset('asset-back') }}/js/app.js"></script>
-<script src="{{ asset('asset-back') }}/js/validate.min.js"></script>
 
-<script src="{{ asset('asset-back') }}/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('asset-back') }}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        var table = $('#example2').DataTable({
-            lengthChange: false,
-            buttons: ['copy', 'excel', 'pdf', 'print']
+    ClassicEditor
+        .create(document.querySelector('#myeditorinstance'))
+        .catch(error => {
+            console.error(error);
         });
+</script>
 
-        table.buttons().container()
-            .appendTo('#example2_wrapper .col-md-6:eq(0)');
-    });
+<script>
+    function confirmDelete(id) {
+        if (confirm('Are You Sure You Want To Delete This?')) {
+            document.getElementById('deleteForm-' + id).submit();
+        }
+    }
 </script>

@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserPasswordReq;
+use App\Models\Category;
+use App\Models\Course;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        return view('frontend.index');
-    }
+
 
     public function UserProfileEdit()
     {
@@ -23,6 +22,8 @@ class UserController extends Controller
         $profileData = User::find($id);
         return view('frontend.dashboard.user-profile-edit', get_defined_vars());
     }
+
+
     public function UserProfileUpdate(Request $request)
     {
         $id = Auth::user()->id;

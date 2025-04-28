@@ -24,7 +24,7 @@ class UpdateCourseRequest extends FormRequest
         return [
             'name' => 'required|string',
             'image' => 'nullable|image|mimes:png,jpg, jpeg',
-            'video' => 'nullable|mimes:mp4|max:10000',
+            'video' => 'nullable|max:51200',
             'category_id' => 'required|exists:categories,id',  // Ensure the category exists
             'subcategory_id' => 'required|exists:sub_categories,id', // Ensure the subcategory exists
             'title' => 'required|string|max:255',
@@ -52,7 +52,7 @@ class UpdateCourseRequest extends FormRequest
             'description.max' => 'Description can\'t exceed 1000 characters.',
             'video.required' => 'A course video is required.',
             'video.mimes' => 'Video must be of type mp4, avi, or mov.',
-            'video.max' => 'Video size cannot exceed 10MB.',
+            'video.max' => 'Video size cannot exceed 50MB.',
             'selling_price.required' => 'Selling price is required.',
             'selling_price.numeric' => 'Selling price must be a valid number.',
             'discount_price.lt' => 'Discount price must be less than selling price.',

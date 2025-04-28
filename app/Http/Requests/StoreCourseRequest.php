@@ -24,7 +24,7 @@ class StoreCourseRequest extends FormRequest
         return [
             'name' => 'required|string',
             'image' => 'required|image|mimes:png,jpg, jpeg',
-            'video' => 'nullable|mimes:mp4|max:10000',
+            'video' => 'nullable|mimes:mp4|max:51200',
             'category_id' => 'required|exists:categories,id',  // Ensure the category exists
             'subcategory_id' => 'required|exists:sub_categories,id', // Ensure the subcategory exists
             'title' => 'required|string|max:255',

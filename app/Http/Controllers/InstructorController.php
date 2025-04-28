@@ -44,28 +44,25 @@ class InstructorController extends Controller
     public function InstructorProfileStore(Request $request)
     {
         $id = Auth::user()->id;
-        $data = User::find($id);
+        $instructor = User::find($id);
 
-        $data->name = $request->name;
-        $data->username = $request->username;
-        $data->email = $request->email;
-        $data->phone = $request->phone;
-        $data->address = $request->address;
+        $instructor->name = $request->name;
+        $instructor->username = $request->username;
+        $instructor->email = $request->email;
+        $instructor->phone = $request->phone;
+        $instructor->address = $request->address;
 
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
+            // delete old photo
+            $instructor->clearMediaCollection('instructors');
 
-            // delete the old photo
-            @unlink(public_path('upload/instructor-images/' . $data->photo));
-
-            $fileName = time() . '_' . $file->getClientOriginalName();
-
-            $file->move(public_path('upload/instructor-images'), $fileName);
-            $data['photo'] = $fileName;
+            $instructor->addMediaFromRequest('photo')
+                ->usingFileName(time() . '.' . $request->file('photo')->getClientOriginalExtension())
+                ->toMediaCollection('instructors');
         }
 
-        $data->save();
+        $instructor->save();
 
         $notification = array(
             'message' => 'Instructor Profile Updated Successfully',

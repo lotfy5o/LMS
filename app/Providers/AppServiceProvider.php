@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer('frontend.master', function ($view) {
+            $headerCategories = Category::with('subCategories', 'courses')->orderBy('name', 'ASC')->get();
+            $view->with('headerCategories', $headerCategories);
+        });
     }
 }

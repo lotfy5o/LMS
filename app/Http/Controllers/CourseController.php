@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateCourseRequest;
 use Illuminate\Http\Request;
 use App\Models\CourseGoal;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -44,10 +45,12 @@ class CourseController extends Controller
         $data = $request->validated();
         $data['instructor_id'] = Auth::user()->id;
 
+
         $course = Course::create(collect($data)->except(['image', 'video'])->toArray());
         $course_id = $course->id;
 
         if ($request->hasFile('image')) {
+
             // grap the image, rename it, store it in a collection called categories
             $course->addMediaFromRequest('image')
                 ->usingFileName(time() . '.' . $request->file('image')->getClientOriginalExtension())
@@ -55,6 +58,7 @@ class CourseController extends Controller
         }
 
         if ($request->hasFile('video')) {
+
             $course->addMediaFromRequest('video')
                 ->usingFileName(time() . '.' . $request->file('video')->getClientOriginalExtension())
                 ->toMediaCollection('courses_videos');
@@ -116,14 +120,16 @@ class CourseController extends Controller
                 ->toMediaCollection('courses_images');
         }
 
-        if ($request->hasFile('video')) {
-
-            // delete old video
-            $course->clearMediaCollection('courses_videos');
-
-            $course->addMediaFromRequest('video')
-                ->usingFileName(time() . '.' . $request->file('video')->getClientOriginalExtension())
-                ->toMediaCollection('courses_videos');
+        try {
+            if ($request->hasFile('video')) {
+                $course->clearMediaCollection('courses_videos');
+                $course->addMediaFromRequest('video')
+                    ->usingFileName(time() . '.' . $request->file('video')->getClientOriginalExtension())
+                    ->toMediaCollection('courses_videos');
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error uploading video: ' . $e->getMessage());
+            return back()->withErrors(['message' => 'There was an error uploading the video.']);
         }
 
         // I am using spatie media library so there is no columns in the database
@@ -192,5 +198,20 @@ class CourseController extends Controller
         );
 
         return redirect()->route('courses.index')->with($notification);
+    }
+    public function UpdateCourseStatus(Request $request)
+    {
+
+
+        $course = Course::find($request->input('course_id'));
+        $isChecked = $request->input('is_checked', 0);
+
+        if ($course) {
+            $course->status = $isChecked;
+            $course->save();
+        }
+
+
+        return response()->json(['message' => 'User Status Updated Successfully']);
     }
 }

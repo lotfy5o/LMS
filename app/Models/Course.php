@@ -12,6 +12,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class Course extends Model implements HasMedia
 {
     use HasFactory, HasSlug, InteractsWithMedia;
@@ -52,6 +54,11 @@ class Course extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
+    }
+
     public function goals()
     {
         return $this->hasMany(CourseGoal::class);
@@ -72,5 +79,26 @@ class Course extends Model implements HasMedia
             'id',                 // Local key on courses table
             'id'                  // Local key on course_sections table
         );
+    }
+
+    protected function discountPercentage(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->discount_price === null || $this->selling_price == 0) {
+                    return 0;
+                }
+
+                $discountAmount = $this->selling_price - $this->discount_price;
+                $discountPercentage = ($discountAmount / $this->selling_price) * 100;
+
+                return round($discountPercentage, 2);
+            }
+        );
+    }
+
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'instructor_id', 'id');
     }
 }

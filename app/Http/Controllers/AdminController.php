@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return to_route('/admin/login');
+        return redirect('/admin/login');
     }
 
     public function AdminLogin()
@@ -48,28 +48,27 @@ class AdminController extends Controller
     public function AdminProfileStore(Request $request)
     {
         $id = Auth::user()->id;
-        $data = User::find($id);
+        $admin = User::find($id);
 
-        $data->name = $request->name;
-        $data->username = $request->username;
-        $data->email = $request->email;
-        $data->phone = $request->phone;
-        $data->address = $request->address;
+        $admin->name = $request->name;
+        $admin->username = $request->username;
+        $admin->email = $request->email;
+        $admin->phone = $request->phone;
+        $admin->address = $request->address;
 
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
+            // delete old photo
+            $admin->clearMediaCollection('admins');
 
-            // delete the old photo
-            @unlink(public_path('upload/admin-images/' . $data->photo));
-
-            $fileName = time() . '_' . $file->getClientOriginalName();
-
-            $file->move(public_path('upload/admin-images'), $fileName);
-            $data['photo'] = $fileName;
+            $admin->addMediaFromRequest('photo')
+                ->usingFileName(time() . '.' . $request->file('photo')->getClientOriginalExtension())
+                ->toMediaCollection('admins');
         }
 
-        $data->save();
+
+
+        $admin->save();
 
         $notification = array(
             'message' => 'Admin Profile Updated Successfully',

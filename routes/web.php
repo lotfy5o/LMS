@@ -12,6 +12,7 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CourseLectureController;
 use App\Http\Controllers\CourseSectionController;
+use App\Http\Controllers\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,18 @@ use App\Http\Controllers\CourseSectionController;
 
 
 
-Route::get('/', [UserController::class, 'index'])->name('index');
+
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/courses/{course}/course-details', 'courseDetails')->name('frontend.course.details');
+    Route::get('/categories', 'allCategories')->name('frontend.allCategories');
+    Route::get('/categories/{category}', 'categoryDetails')->name('frontend.categoryDetails');
+    Route::get('/categories/{category}/{subcategory}', 'subcategoryDetails')->name('frontend.subcategoryDetails');
+});
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'roles:user'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -121,6 +129,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::resource('courses', CourseController::class);
         Route::get('/subcategory/ajax/{category_id}', 'GetSubCategory');
         Route::post('/courses/{course}/goal/update', 'UpdateCourseGoal')->name('update.course.goal');
+        Route::post('/courses/status/update', 'UpdateCourseStatus')->name('course.status.update');
     });
 
     Route::resource('courses.sections', CourseSectionController::class);

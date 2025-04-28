@@ -54,4 +54,9 @@ class SubCategory extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'subcategory_id');
+    }
 }

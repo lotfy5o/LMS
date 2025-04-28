@@ -58,4 +58,16 @@ class Category extends Model implements HasMedia
     {
         return $this->hasMany(Course::class);  // A category can have many courses
     }
+
+    public function coursesCount()
+    {
+        return $this->courses()->count();
+    }
+
+    public function activeCourses()
+    {
+        return $this->courses()
+            ->where('status', 1)
+            ->orderBy('id', 'DESC');
+    }
 }
