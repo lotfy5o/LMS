@@ -32,8 +32,9 @@ use App\Http\Controllers\FrontendController;
 Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/courses/{course}/course-details', 'courseDetails')->name('frontend.course.details');
+    Route::get('/courses/{instructor}/instructor-details', 'instructorDetails')->name('frontend.instructor.details');
     Route::get('/categories', 'allCategories')->name('frontend.allCategories');
-    Route::get('/categories/{category}', 'categoryDetails')->name('frontend.categoryDetails');
+    Route::get('/categories/{category}', 'categoryDetails')->name('frontend.category.details');
     Route::get('/categories/{category}/{subcategory}', 'subcategoryDetails')->name('frontend.subcategoryDetails');
 });
 

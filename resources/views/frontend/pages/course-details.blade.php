@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                            START BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                            START BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
     <section class="breadcrumb-area pt-50px pb-50px bg-white pattern-bg">
         <div class="container">
             <div class="col-lg-8 mr-auto">
@@ -36,7 +36,8 @@
                             <span class="student-total pl-2">540,815 students</span>
                         </div>
                     </div><!-- end d-flex -->
-                    <p class="pt-2 pb-1">Created by <a href="teacher-detail.html"
+                    <p class="pt-2 pb-1">Created by <a
+                            href="{{ route('frontend.instructor.details', ['instructor' => $course->instructor]) }}"
                             class="text-color hover-underline"> {{ $course->instructor->name }} </a></p>
                     <div class="d-flex flex-wrap align-items-center">
                         <p class="pr-3 d-flex align-items-center">
@@ -77,12 +78,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                            END BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                            END BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                START COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                START COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
     <section class="course-details-area pb-20px">
         <div class="container">
             <div class="row">
@@ -497,14 +498,14 @@
                                     <p class="d-flex align-items-center pb-2">
                                         @if ($course->discount_price == null)
                                             <span
-                                                class="fs-35 font-weight-semi-bold text-black">${{ $course->selling_price }}</span>
+                                                class="fs-35 font-weight-semi-bold text-black">${{ number_format($course->selling_price, 2) }}</span>
                                         @else
                                             <span
-                                                class="fs-35 font-weight-semi-bold text-black">${{ $course->discount_price }}</span>
+                                                class="fs-35 font-weight-semi-bold text-black">${{ number_format($course->discount_price, 2) }}</span>
                                             <span
-                                                class="before-price mx-1">${{ $course->selling_price }}</span>
+                                                class="before-price mx-1">${{ number_format($course->selling_price, 2) }}</span>
                                             <span
-                                                class="price-discount">{{ $course->discountPercentage }}%
+                                                class="price-discount">{{ number_format($course->discountPercentage, 2) }}%
                                                 off</span>
                                         @endif
                                     </p>
@@ -706,17 +707,17 @@
         </div><!-- end container -->
     </section><!-- end course-details-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                END COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                END COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                START RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                START RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
     <section class="related-course-area bg-gray pt-60px pb-60px">
         <div class="container">
             <div class="related-course-wrap">
                 <h3 class="fs-28 font-weight-semi-bold pb-35px">More Courses by <a
-                        href="teacher-detail.html"
+                        href="{{ route('frontend.instructor.details', ['instructor' => $course->instructor]) }}"
                         class="text-color hover-underline">{{ $course->instructor->name }}</a>
                 </h3>
                 <div class="view-more-carousel-2 owl-action-styled">
@@ -777,12 +778,12 @@
         </div><!-- end container -->
     </section><!-- end related-course-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                END RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                END RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
 
     <!--======================================
-                                                        START CTA AREA
-                            ======================================-->
+                                                                        START CTA AREA
+                                            ======================================-->
     <section class="cta-area pt-60px pb-60px position-relative overflow-hidden">
         <span class="stroke-shape stroke-shape-1"></span>
         <span class="stroke-shape stroke-shape-2"></span>
@@ -830,8 +831,8 @@
         </div><!-- end container -->
     </section><!-- end cta-area -->
     <!--======================================
-                                                        END CTA AREA
-                        ======================================-->
+                                                                        END CTA AREA
+                                        ======================================-->
 
     <div class="section-block"></div>
 

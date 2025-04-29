@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!-- ================================
-                                                                                                                                                                                START BREADCRUMB AREA
-                                                                                                                                                                            ================================= -->
+                                                                                                                                                                                    START BREADCRUMB AREA
+                                                                                                                                                                                ================================= -->
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
         <div class="container">
@@ -14,7 +14,7 @@
                     class="generic-list-item generic-list-item-white generic-list-item-arrow d-flex flex-wrap align-items-center">
                     <li><a href="{{ route('frontend.allCategories') }}">Categories</a></li>
                     <li><a
-                            href="{{ route('frontend.categoryDetails', ['category' => $category]) }}">{{ $category->name }}</a>
+                            href="{{ route('frontend.category.details', ['category' => $category]) }}">{{ $category->name }}</a>
                     </li>
                     <li>
                         {{ $subcategory->name }}
@@ -27,13 +27,13 @@
     </section><!-- end breadcrumb-area -->
 
     <!-- ================================
-                                                                                                                                                    END BREADCRUMB AREA
-                                                                                                                                            ================================= -->
+                                                                                                                                                        END BREADCRUMB AREA
+                                                                                                                                                ================================= -->
 
 
     <!--======================================
-                                                                                                                                                START COURSE AREA
-                                                                                                                                        ======================================-->
+                                                                                                                                                    START COURSE AREA
+                                                                                                                                            ======================================-->
     <section class="course-area section--padding">
         <div class="container">
             <div class="filter-bar mb-4">
@@ -700,6 +700,6 @@
         </div><!-- end container -->
     </section><!-- end courses-area -->
     <!--======================================
-                                                                                                                                                                                            END COURSE AREA
-                                                                                                                                                                                    ======================================-->
+                                                                                                                                                                                                END COURSE AREA
+                                                                                                                                                                                        ======================================-->
 @endsection

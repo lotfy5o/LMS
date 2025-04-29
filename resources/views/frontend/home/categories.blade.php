@@ -31,7 +31,7 @@
                                     <h3 class="cat__title"><a href="#">
                                             {{ $category->name }} </a></h3>
                                     <p class="cat__meta">{{ $category->coursesCount() }} courses</p>
-                                    <a href="#"
+                                    <a href="{{ route('frontend.category.details', ['category' => $category]) }}"
                                         class="btn theme-btn theme-btn-sm theme-btn-white">Explore<i
                                             class="la la-arrow-right icon ml-1"></i></a>
                                 </div>

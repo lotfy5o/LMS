@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Category;
 use App\Models\CourseGoal;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -39,5 +40,11 @@ class FrontendController extends Controller
     {
         $allCategories = Category::orderBy('name', 'ASC')->get();
         return view('frontend.pages.subcategory-details', get_defined_vars());
+    }
+
+    public function instructorDetails(User $instructor)
+    {
+
+        return view('frontend.pages.instructor-details', get_defined_vars());
     }
 }

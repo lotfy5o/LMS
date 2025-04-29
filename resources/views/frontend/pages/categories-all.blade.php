@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!--======================================
-                                                                    START CATEGORY AREA
-                                                            ======================================-->
+                                                                        START CATEGORY AREA
+                                                                ======================================-->
     <section class="category-area section--padding">
         <div class="container">
             <div class="category-wrapper">
@@ -36,6 +36,6 @@
         </div><!-- end container -->
     </section><!-- end category-area -->
     <!--======================================
-                                                                    END CATEGORY AREA
-                                                            ======================================-->
+                                                                        END CATEGORY AREA
+                                                                ======================================-->
 @endsection

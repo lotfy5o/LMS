@@ -124,7 +124,8 @@
                                         <ul class="cat-dropdown-menu">
                                             @foreach ($headerCategories as $category)
                                                 <li>
-                                                    <a href="course-grid.html">{{ $category->name }}
+                                                    <a
+                                                        href="{{ route('frontend.category.details', ['category' => $category]) }}">{{ $category->name }}
                                                         <i class="la la-angle-right"></i></a>
                                                     <ul class="sub-menu">
                                                         @foreach ($category->subCategories as $subcategory)
