@@ -26,4 +26,8 @@
     <link rel="stylesheet" href="{{ asset('asset-front') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('asset-front') }}/css/plyr.css">
     <!-- end inject -->
+
+    {{-- for sending a request to /addToWishlist/ --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>

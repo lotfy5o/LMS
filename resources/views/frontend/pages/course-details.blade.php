@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                                            START BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        START BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================= -->
     <section class="breadcrumb-area pt-50px pb-50px bg-white pattern-bg">
         <div class="container">
             <div class="col-lg-8 mr-auto">
@@ -58,11 +58,10 @@
                         </p>
                     </div><!-- end d-flex -->
                     <div class="bread-btn-box pt-3">
-                        <button
+                        <button id="wishlistBtn" data-course-id="{{ $course->id }}"
                             class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2">
                             <i class="la la-heart-o mr-1"></i>
-                            <span class="swapping-btn" data-text-swap="Wishlisted"
-                                data-text-original="Wishlist">Wishlist</span>
+                            <span class="swapping-btn">Wishlist</span>
                         </button>
                         <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2"
                             data-toggle="modal" data-target="#shareModal">
@@ -78,12 +77,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                                            END BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        END BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ================================= -->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                START COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            START COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ======================================-->
     <section class="course-details-area pb-20px">
         <div class="container">
             <div class="row">
@@ -259,9 +258,11 @@
                                                 <span
                                                     class="before-price font-weight-medium">129.99</span>
                                             </p>
-                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist"><i class="la la-heart-o"></i>
-                                            </div>
+                                            <button id="wishlistIcon"
+                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
+                                                title="Add to Wishlist">
+                                                <i class="la la-heart-o"></i>
+                                            </button>
                                         </div>
                                     </div><!-- end card-body -->
                                 </div><!-- end card -->
@@ -297,9 +298,11 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="card-price text-black font-weight-bold">129.99
                                             </p>
-                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist"><i class="la la-heart-o"></i>
-                                            </div>
+                                            <button id="wishlistIcon"
+                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
+                                                title="Add to Wishlist">
+                                                <i class="la la-heart-o"></i>
+                                            </button>
                                         </div>
                                     </div><!-- end card-body -->
                                 </div><!-- end card -->
@@ -338,9 +341,11 @@
                                                 <span
                                                     class="before-price font-weight-medium">129.99</span>
                                             </p>
-                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist"><i class="la la-heart-o"></i>
-                                            </div>
+                                            <button id="wishlistIcon"
+                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
+                                                title="Add to Wishlist">
+                                                <i class="la la-heart-o"></i>
+                                            </button>
                                         </div>
                                     </div><!-- end card-body -->
                                 </div><!-- end card -->
@@ -376,9 +381,11 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="card-price text-black font-weight-bold">129.99
                                             </p>
-                                            <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist"><i class="la la-heart-o"></i>
-                                            </div>
+                                            <button id="wishlistIcon"
+                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
+                                                title="Add to Wishlist">
+                                                <i class="la la-heart-o"></i>
+                                            </button>
                                         </div>
                                     </div><!-- end card-body -->
                                 </div><!-- end card -->
@@ -707,12 +714,12 @@
         </div><!-- end container -->
     </section><!-- end course-details-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                END COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            END COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ======================================-->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                START RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            START RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ======================================-->
     <section class="related-course-area bg-gray pt-60px pb-60px">
         <div class="container">
             <div class="related-course-wrap">
@@ -778,12 +785,12 @@
         </div><!-- end container -->
     </section><!-- end related-course-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                END RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                                        ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            END RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ======================================-->
 
     <!--======================================
-                                                                        START CTA AREA
-                                            ======================================-->
+                                                                                                                                                    START CTA AREA
+                                                                                                                        ======================================-->
     <section class="cta-area pt-60px pb-60px position-relative overflow-hidden">
         <span class="stroke-shape stroke-shape-1"></span>
         <span class="stroke-shape stroke-shape-2"></span>
@@ -831,8 +838,8 @@
         </div><!-- end container -->
     </section><!-- end cta-area -->
     <!--======================================
-                                                                        END CTA AREA
-                                        ======================================-->
+                                                                                                                                                    END CTA AREA
+                                                                                                                    ======================================-->
 
     <div class="section-block"></div>
 
@@ -957,4 +964,27 @@
             </div><!-- end modal-content -->
         </div><!-- end modal-dialog -->
     </div><!-- end modal -->
+
+
+    <script>
+        document.getElementById('wishlistIcon').addEventListener('click', function() {
+            alert('hello');
+            const icon = this.querySelector('i');
+
+            const isWishlisted = icon.classList.contains('la-heart');
+
+            if (isWishlisted) {
+                // Turn OFF
+                icon.classList.remove('la-heart');
+                icon.classList.add('la-heart-o');
+            } else {
+                // Turn ON
+                icon.classList.remove('la-heart-o');
+                icon.classList.add('la-heart');
+
+            }
+
+
+        });
+    </script>
 @endsection

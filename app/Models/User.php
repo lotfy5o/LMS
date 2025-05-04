@@ -46,4 +46,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Course::class, 'instructor_id');
     }
+
+    public function wishListedCourses()
+    {
+        return $this->belongsToMany(Course::class, 'wishlists');
+    }
 }

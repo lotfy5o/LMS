@@ -13,6 +13,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CourseLectureController;
 use App\Http\Controllers\CourseSectionController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/categories/{category}', 'categoryDetails')->name('frontend.category.details');
     Route::get('/categories/{category}/{subcategory}', 'subcategoryDetails')->name('frontend.subcategoryDetails');
 });
+
+Route::post('/course/add-to-wishlist', [WishlistController::class, 'addToWishlist']);
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
