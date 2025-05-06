@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\CourseGoal;
 use App\Models\SubCategory;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -22,6 +23,9 @@ class FrontendController extends Controller
     public function courseDetails(Course $course)
     {
         $goals = CourseGoal::where('course_id', $course->id)->orderBy('id', 'ASC')->get();
+        $isWishlisted = Wishlist::where('course_id', $course->id)->where('user_id', auth()->id())
+            ->exists();
+
 
         return view('frontend.pages.course-details', get_defined_vars());
     }

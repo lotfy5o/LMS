@@ -20,11 +20,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    function addToWishlist(courseId) {
+    function toggleWishlist(courseId) {
 
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        fetch('/course/add-to-wishlist', {
+        fetch('/course/toggle-wishlist', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,6 +73,8 @@
     };
 
 
+
+
     document.getElementById('wishlistBtn').addEventListener('click', function() {
         const icon = this.querySelector('i');
         const textSpan = this.querySelector('.swapping-btn');
@@ -86,12 +88,32 @@
             icon.classList.remove('la-heart');
             icon.classList.add('la-heart-o');
             textSpan.textContent = 'Wishlist';
+            toggleWishlist(courseId);
         } else {
             // Turn ON
             icon.classList.remove('la-heart-o');
             icon.classList.add('la-heart');
             textSpan.textContent = 'Wishlisted';
+            toggleWishlist(courseId);
         }
-        addToWishlist(courseId);
+    });
+
+    document.getElementById('wishlistIcon').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+
+        const isWishlisted = icon.classList.contains('la-heart');
+        const courseId = this.getAttribute('data-course-id');
+
+        if (isWishlisted) {
+            // Turn OFF
+            icon.classList.remove('la-heart');
+            icon.classList.add('la-heart-o');
+        } else {
+            // Turn ON
+            icon.classList.remove('la-heart-o');
+            icon.classList.add('la-heart');
+
+        }
+
     });
 </script>

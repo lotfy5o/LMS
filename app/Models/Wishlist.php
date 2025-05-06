@@ -16,4 +16,14 @@ class Wishlist extends Model
         $user = Auth::user();
         $course = Course::find($courseId);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

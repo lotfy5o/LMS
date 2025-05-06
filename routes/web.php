@@ -39,7 +39,14 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/categories/{category}/{subcategory}', 'subcategoryDetails')->name('frontend.subcategoryDetails');
 });
 
-Route::post('/course/add-to-wishlist', [WishlistController::class, 'addToWishlist']);
+Route::controller(WishlistController::class)->group(
+    function () {
+        Route::post('/course/toggle-wishlist', 'toggleWishlist');
+        Route::get('/user/wishlist', 'AllWishlist')->name('user.wishlist');
+        Route::get('/get-wishlisted-courses', 'GetWishListedCourses');
+        Route::get('/remove-wishlist/{courseId}', 'removeWishlist');
+    }
+);
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');

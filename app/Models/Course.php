@@ -102,8 +102,8 @@ class Course extends Model implements HasMedia
         return $this->belongsTo(User::class, 'instructor_id', 'id');
     }
 
-    public function wishListedCourses()
+    public function wishlistedByUsers()
     {
-        return $this->belongsToMany(User::class, 'wishlists');
+        return $this->belongsToMany(User::class, 'wishlists', 'course_id', 'user_id');
     }
 }
