@@ -2,8 +2,8 @@
 @section('content')
     {{-- @dd($isWishlisted) --}}
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    START BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                START BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================= -->
     <section class="breadcrumb-area pt-50px pb-50px bg-white pattern-bg">
         <div class="container">
             <div class="col-lg-8 mr-auto">
@@ -79,12 +79,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    END BREADCRUMB AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                END BREADCRUMB AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ================================= -->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        START COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    START COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ======================================-->
     <section class="course-details-area pb-20px">
         <div class="container">
             <div class="row">
@@ -100,11 +100,7 @@
                                 @endforeach
                             </ul>
                         </div><!-- end course-overview-card -->
-                        <div class="course-overview-card bg-gray p-4 rounded">
-                            <h3 class="fs-16 font-weight-semi-bold">Curated for the <a
-                                    href="for-business.html" class="text-color hover-underline">Aduca
-                                    for Business</a> collection</h3>
-                        </div><!-- end course-overview-card -->
+
                         <div class="course-overview-card">
                             <h3 class="fs-24 font-weight-semi-bold pb-3">Requirements</h3>
                             <ul class="generic-list-item generic-list-item-bullet fs-15">
@@ -115,7 +111,7 @@
                         <div class="course-overview-card">
                             <h3 class="fs-24 font-weight-semi-bold pb-3">Description</h3>
                             <p class="fs-15 pb-2"> {!! $course->description !!} </p>
-                            {{-- <div class="collapse" id="collapseMore">
+                            <div class="collapse" id="collapseMore">
                                 <p class="fs-15 pb-2">The core java material you need to learn java
                                     development is covered in the first seven sections (around 14 hours
                                     in total). The Java Basics are covered in those sections. The rest
@@ -128,7 +124,7 @@
                                     <li>Anyone who wants to become a computer programmer</li>
                                     <li>Anyone who wants to become a computer programmer</li>
                                 </ul>
-                            </div> --}}
+                            </div>
                             {{-- <a class="collapse-btn collapse--btn fs-15" data-toggle="collapse"
                                 href="#collapseMore" role="button" aria-expanded="false"
                                 aria-controls="collapseMore">
@@ -202,345 +198,7 @@
                                 </div><!-- end generic-accordion -->
                             </div><!-- end curriculum-content -->
                         </div><!-- end course-overview-card -->
-                        <div class="course-overview-card pt-4">
-                            <h3 class="fs-24 font-weight-semi-bold pb-4">Students also bought</h3>
-                            <div class="view-more-carousel owl-action-styled">
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img8.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge">Bestseller</div>
-                                            <div class="course-badge blue">-39%</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">12.99
-                                                <span
-                                                    class="before-price font-weight-medium">129.99</span>
-                                            </p>
-                                            <button id="wishlistIcon" data-course-id=""
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img9.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge red">Featured</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">129.99
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img8.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge">Bestseller</div>
-                                            <div class="course-badge blue">-39%</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">12.99
-                                                <span
-                                                    class="before-price font-weight-medium">129.99</span>
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img9.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge red">Featured</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">129.99
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                            </div><!-- end view-more-carousel -->
-                            <div class="view-more-carousel owl-action-styled">
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img8.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge">Bestseller</div>
-                                            <div class="course-badge blue">-39%</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">12.99
-                                                <span
-                                                    class="before-price font-weight-medium">129.99</span>
-                                            </p>
-                                            <button id="wishlistIcon" data-course-id=""
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img9.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge red">Featured</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">129.99
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img8.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge">Bestseller</div>
-                                            <div class="course-badge blue">-39%</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">12.99
-                                                <span
-                                                    class="before-price font-weight-medium">129.99</span>
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                                <div
-                                    class="card card-item card-item-list-layout border border-gray shadow-none">
-                                    <div class="card-image">
-                                        <a href="course-details.html" class="d-block">
-                                            <img class="card-img-top"
-                                                src="{{ asset('asset-front') }}/images/img9.jpg"
-                                                alt="Card image cap">
-                                        </a>
-                                        <div class="course-badge-labels">
-                                            <div class="course-badge red">Featured</div>
-                                        </div>
-                                    </div><!-- end card-image -->
-                                    <div class="card-body">
-                                        <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
-                                        <h5 class="card-title"><a href="course-details.html">The
-                                                Business Intelligence Analyst Course 2021</a></h5>
-                                        <p class="card-text"><a href="teacher-detail.html">Jose
-                                                Portilla</a></p>
-                                        <div class="rating-wrap d-flex align-items-center py-2">
-                                            <div class="review-stars">
-                                                <span class="rating-number">4.4</span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star"></span>
-                                                <span class="la la-star-o"></span>
-                                            </div>
-                                            <span class="rating-total pl-1">(20,230)</span>
-                                        </div><!-- end rating-wrap -->
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-price text-black font-weight-bold">129.99
-                                            </p>
-                                            <button id="wishlistIcon"
-                                                class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                                title="Add to Wishlist">
-                                                <i class="la la-heart-o"></i>
-                                            </button>
-                                        </div>
-                                    </div><!-- end card-body -->
-                                </div><!-- end card -->
-                            </div><!-- end view-more-carousel -->
-                        </div><!-- end course-overview-card -->
+
                         <div class="course-overview-card pt-4">
                             <h3 class="fs-24 font-weight-semi-bold pb-4">About the instructor</h3>
                             <div class="instructor-wrap">
@@ -864,12 +522,12 @@
         </div><!-- end container -->
     </section><!-- end course-details-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        END COURSE DETAILS AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    END COURSE DETAILS AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ======================================-->
 
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        START RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    START RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ======================================-->
     <section class="related-course-area bg-gray pt-60px pb-60px">
         <div class="container">
             <div class="related-course-wrap">
@@ -926,8 +584,11 @@
                                                 class="before-price font-weight-medium">{{ number_format($course->selling_price, 2) }}</span>
                                         </p>
                                     @endif
-                                    <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                        title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                                    <div class="icon-element icon-element-sm shadow-sm"
+                                        title="In Wishlist">
+                                        <i
+                                            class="la {{ $relatedCourse->isWishlistedByCurrentUser() ? 'la-heart' : 'la-heart-o' }} mr-1"></i>
+                                    </div>
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
@@ -937,12 +598,12 @@
         </div><!-- end container -->
     </section><!-- end related-course-area -->
     <!--======================================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        END RELATED COURSE AREA
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ======================================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    END RELATED COURSE AREA
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ======================================-->
 
     <!--======================================
-                                                                                                                                                                                                START CTA AREA
-                                                                                                                                                                    ======================================-->
+                                                                                                                                                                                                                                            START CTA AREA
+                                                                                                                                                                                                                ======================================-->
     <section class="cta-area pt-60px pb-60px position-relative overflow-hidden">
         <span class="stroke-shape stroke-shape-1"></span>
         <span class="stroke-shape stroke-shape-2"></span>
@@ -990,8 +651,8 @@
         </div><!-- end container -->
     </section><!-- end cta-area -->
     <!--======================================
-                                                                                                                                                                                                END CTA AREA
-                                                                                                                                                                ======================================-->
+                                                                                                                                                                                                                                            END CTA AREA
+                                                                                                                                                                                                            ======================================-->
 
     <div class="section-block"></div>
 

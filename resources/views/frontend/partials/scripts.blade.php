@@ -21,6 +21,10 @@
 
 <script>
     function toggleWishlist(courseId) {
+        const button = document.querySelector(`[data-course-id="${courseId}"]`);
+        const icon = button.querySelector('i');
+        const textSpan = button.querySelector('.swapping-btn');
+        const isWishlisted = icon.classList.contains('la-heart');
 
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -33,87 +37,53 @@
                 body: JSON.stringify({
                     course_id: courseId
                 })
-            }).then(response => response.json())
+            })
+            .then(response => response.json())
             .then(data => {
-                if (data.error) {
-                    // Display the error message to the user
-                    alert(data
-                        .error
-                    ); // You can replace this with a more user-friendly modal or element
-                } else if (data.success) {
-                    // Handle success response, like updating the button state
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 6000
-                    })
-                    if ($.isEmptyObject(data.error)) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 6000
+                });
 
-                        Toast.fire({
-                            type: 'success',
-                            icon: 'success',
-                            title: data.success,
-                        })
-
+                if ($.isEmptyObject(data.error)) {
+                    // ✅ Only update UI if successful
+                    if (isWishlisted) {
+                        icon.classList.remove('la-heart');
+                        icon.classList.add('la-heart-o');
+                        textSpan.textContent = 'Wishlist';
                     } else {
-
-                        Toast.fire({
-                            type: 'error',
-                            icon: 'error',
-                            title: data.error,
-                        })
+                        icon.classList.remove('la-heart-o');
+                        icon.classList.add('la-heart');
+                        textSpan.textContent = 'Wishlisted';
                     }
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success
+                    });
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
                 }
             })
             .catch(error => {
-                // Handle any errors in the request
                 console.error('Error:', error);
             });
-    };
-
+    }
 
 
 
     document.getElementById('wishlistBtn').addEventListener('click', function() {
-        const icon = this.querySelector('i');
-        const textSpan = this.querySelector('.swapping-btn');
-
-        const isWishlisted = icon.classList.contains('la-heart');
-
         const courseId = this.getAttribute('data-course-id');
-
-        if (isWishlisted) {
-            // Turn OFF
-            icon.classList.remove('la-heart');
-            icon.classList.add('la-heart-o');
-            textSpan.textContent = 'Wishlist';
-            toggleWishlist(courseId);
-        } else {
-            // Turn ON
-            icon.classList.remove('la-heart-o');
-            icon.classList.add('la-heart');
-            textSpan.textContent = 'Wishlisted';
-            toggleWishlist(courseId);
-        }
+        toggleWishlist(courseId);
     });
 
-    document.getElementById('wishlistIcon').addEventListener('click', function() {
-        const icon = this.querySelector('i');
-
-        const isWishlisted = icon.classList.contains('la-heart');
-        const courseId = this.getAttribute('data-course-id');
-
-        if (isWishlisted) {
-            // Turn OFF
-            icon.classList.remove('la-heart');
-            icon.classList.add('la-heart-o');
-        } else {
-            // Turn ON
-            icon.classList.remove('la-heart-o');
-            icon.classList.add('la-heart');
-
-        }
-
-    });
+    // document.getElementById('wishlistIcon').addEventListener('click', function() {
+    //     const courseId = this.getAttribute('data-course-id');
+    //     toggleWishlist(courseId);
+    // });
 </script>
