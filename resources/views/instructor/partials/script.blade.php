@@ -24,7 +24,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script src="{{ asset('asset-back') }}/js/code.js"></script>
+{{-- <script src="{{ asset('asset-back') }}/js/code.js"></script> --}}
 
 <!--Datatable-->
 <script src="{{ asset('asset-back') }}/plugins/datatable/js/jquery.dataTables.min.js"></script>
