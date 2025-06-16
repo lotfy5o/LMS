@@ -20,6 +20,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
+    window.myCartUrl = "{{ route('myCart') }}";
+</script>
+
+<script>
     function toggleWishlist(courseId) {
         const button = document.querySelector(`[data-course-id="${courseId}"]`);
         const icon = button.querySelector('i');
@@ -77,6 +81,8 @@
 
 
 
+
+
     document.getElementById('wishlistBtn').addEventListener('click', function() {
         const courseId = this.getAttribute('data-course-id');
         toggleWishlist(courseId);
@@ -86,4 +92,227 @@
     //     const courseId = this.getAttribute('data-course-id');
     //     toggleWishlist(courseId);
     // });
+
+
+    function addToCart(courseSlug, btn) {
+        fetch(`/addToCart/${courseSlug}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                loadMiniCart();
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 6000
+                });
+
+                if ($.isEmptyObject(data.error)) {
+                    // Update button UI
+                    if (btn.classList.contains('btn-success')) {
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-danger');
+                        btn.innerHTML =
+                            '<i class="la la-shopping-cart mr-1 fs-18"></i>Remove From Cart';
+                        btn.setAttribute('onclick', `removeFromCart('${courseSlug}', this)`);
+                    } else {
+                        btn.classList.remove('btn-danger');
+                        btn.classList.add('btn-success');
+                        btn.innerHTML =
+                            '<i class="la la-shopping-cart mr-1 fs-18"></i>Add to Cart';
+                        btn.setAttribute('onclick', `addToCart('${courseSlug}', this)`);
+                    }
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    });
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    });
+                }
+            }).catch(error => {
+                console.error('Error', error);
+            });
+    }
+
+
+
+    function removeFromCart(courseSlug, btn) {
+        fetch(`/removeFromCart/${courseSlug}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                loadMiniCart();
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 6000
+                });
+
+                if (data.success) {
+                    // Update button UI
+                    if (btn.classList.contains('btn-danger')) {
+                        btn.classList.remove('btn-danger');
+                        btn.classList.add('btn-success');
+                        btn.innerHTML =
+                            '<i class="la la-shopping-cart mr-1 fs-18"></i>Add to Cart';
+                        btn.setAttribute('onclick', `addToCart('${courseSlug}', this)`);
+                    } else {
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-danger');
+                        btn.innerHTML =
+                            '<i class="la la-shopping-cart mr-1 fs-18"></i>Remove From Cart';
+                        btn.setAttribute('onclick', `removeFromCart('${courseSlug}', this)`);
+                    }
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    });
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    });
+                }
+            }).catch(error => {
+                console.error('Error', error);
+            });
+    }
+
+    function loadMiniCart() {
+        fetch('/cartData', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const miniCartList = document.querySelector('.cart-dropdown-menu');
+                miniCartList.innerHTML = ''; // Clear previous content
+
+                // Update the product count dynamically
+                const cartCount = document.querySelector('.product-count');
+                if (cartCount) {
+                    cartCount.textContent = data.cart_count || 0;
+                }
+
+                data.courses.forEach(course => {
+                    const li = document.createElement('li');
+                    li.className = 'media media-card';
+                    li.innerHTML = `
+                    
+                    <a href="/courses/${course.slug}/course-details" class="media-img">
+                        <img src="${course.image}" alt="${course.name}">
+                    </a>
+
+                    
+                    <div class="media-body">
+                        <h5><a href="/courses/${course.slug}/course-details">${course.name}</a></h5>
+                        <span class="d-block lh-18 py-1">${course.instructor.name}</span>
+                        <p class="text-black font-weight-semi-bold lh-18">
+                            $${course.price}
+                        </p>
+                    </div>
+                `;
+                    miniCartList.appendChild(li);
+                });
+
+                // Total item
+                const totalLi = document.createElement('li');
+                totalLi.className = 'media media-card';
+                totalLi.innerHTML = `
+                <div class="media-body fs-16">
+                    <p class="text-black font-weight-semi-bold lh-18">
+                        Total: <span class="cart-total">$${data.total_price}</span>
+                    </p>
+                </div>
+            `;
+                miniCartList.appendChild(totalLi);
+
+                // Go to cart button
+                const buttonLi = document.createElement('li');
+                buttonLi.innerHTML = `
+                <a href="${window.myCartUrl}" class="btn theme-btn w-100">
+                    Go to cart <i class="la la-arrow-right icon ml-1"></i>
+                </a>
+            `;
+                miniCartList.appendChild(buttonLi);
+            });
+    }
+
+
+    // 
+
+    function removeCartRow(btn) {
+        const courseSlug = btn.getAttribute('data-course-slug');
+        const row = btn.closest('tr[data-course-slug]');
+        fetch(`/removeFromCart/${courseSlug}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (row) row.remove();
+                    // loadMiniCart();
+                    // Fetch new cart totals and update the DOM
+                    fetch('/cartData', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(cartData => {
+                            // Update subtotal and total in the DOM
+                            document.querySelectorAll('.cart-total, .subtotal-total')
+                                .forEach(el => {
+                                    el.textContent =
+                                        `$${parseFloat(cartData.total_price).toFixed(2)}`;
+                                });
+                        });
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: data.success,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                } else {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: data.error,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+    }
 </script>

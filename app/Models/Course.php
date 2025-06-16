@@ -111,4 +111,15 @@ class Course extends Model implements HasMedia
     {
         return auth()->check() && $this->wishlistedByUsers()->where('user_id', auth()->id())->exists();
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Course::class, 'cart_course', 'cart_id', 'course_id');
+    }
+
+    public $casts = [
+        'selling_price' => 'decimal:2',
+        'discount_price' => 'decimal:2',
+
+    ];
 }

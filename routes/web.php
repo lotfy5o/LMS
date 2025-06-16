@@ -4,6 +4,7 @@ use App\Models\CourseLecture;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
@@ -47,6 +48,13 @@ Route::controller(WishlistController::class)->group(
         Route::get('/remove-wishlist/{courseId}', 'removeWishlist');
     }
 );
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('/addToCart/{course:slug}', 'addToCart')->name('addToCart');
+    Route::get('/removeFromCart/{course:slug}', 'removeFromCart')->name('removeFromCart');
+    Route::get('/cartData', 'fetchCartData')->name('fetchCartData');
+    Route::get('/myCart', 'myCart')->name('myCart');
+});
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');

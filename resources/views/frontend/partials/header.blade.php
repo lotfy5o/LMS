@@ -174,60 +174,59 @@
                                     <li>
                                         <p class="shop-cart-btn d-flex align-items-center">
                                             <i class="la la-shopping-cart"></i>
-                                            <span class="product-count">2</span>
+                                            <span
+                                                class="product-count">{{ $cart && $cart->courses ? $cart->courses->count() : 0 }}</span>
                                         </p>
+
                                         <ul class="cart-dropdown-menu">
-                                            <li class="media media-card">
-                                                <a href="shopping-cart.html" class="media-img">
-                                                    <img src="{{ asset('asset-front') }}/images/small-img.jpg"
-                                                        alt="Cart image">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h5><a href="course-details.html">The Complete
-                                                            JavaScript Course
-                                                            2021: From Zero to Expert!</a></h5>
-                                                    <span class="d-block lh-18 py-1">Kamran
-                                                        Ahmed</span>
-                                                    <p
-                                                        class="text-black font-weight-semi-bold lh-18">
-                                                        $12.99 <span
-                                                            class="before-price fs-14">$129.99</span>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li class="media media-card">
-                                                <a href="shopping-cart.html" class="media-img">
-                                                    <img src="{{ asset('asset-front') }}/images/small-img.jpg"
-                                                        alt="Cart image">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h5><a href="course-details.html">The Complete
-                                                            JavaScript Course
-                                                            2021: From Zero to Expert!</a></h5>
-                                                    <span class="d-block lh-18 py-1">Kamran
-                                                        Ahmed</span>
-                                                    <p
-                                                        class="text-black font-weight-semi-bold lh-18">
-                                                        $12.99 <span
-                                                            class="before-price fs-14">$129.99</span>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li class="media media-card">
-                                                <div class="media-body fs-16">
-                                                    <p
-                                                        class="text-black font-weight-semi-bold lh-18">
-                                                        Total: <span
-                                                            class="cart-total">$12.99</span> <span
-                                                            class="before-price fs-14">$129.99</span>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a href="shopping-cart.html"
-                                                    class="btn theme-btn w-100">Got to cart
-                                                    <i class="la la-arrow-right icon ml-1"></i></a>
-                                            </li>
+                                            @forelse(optional($cart)->courses ?? [] as $course)
+                                                <li class="media media-card">
+                                                    <a href="{{ route('frontend.course.details', ['course' => $course->slug]) }}"
+                                                        class="media-img">
+                                                        <img src="{{ $course->getFirstMediaUrl('courses_images') }}"
+                                                            alt="{{ $course->name }}">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('frontend.course.details', ['course' => $course->slug]) }}">
+                                                                {{ $course->name }}
+                                                            </a>
+                                                        </h5>
+                                                        <span
+                                                            class="d-block lh-18 py-1">{{ $course->instructor->name ?? '' }}</span>
+                                                        <p
+                                                            class="text-black font-weight-semi-bold lh-18">
+                                                            ${{ $course->discount_price ?? $course->selling_price }}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <li class="media media-card">
+                                                    <div class="media-body text-center">
+                                                        <p>Your cart is empty.</p>
+                                                    </div>
+                                                </li>
+                                            @endforelse
+
+                                            @if ($cart && $cart->courses && $cart->courses->count())
+                                                <li class="media media-card">
+                                                    <div class="media-body fs-16">
+                                                        <p
+                                                            class="text-black font-weight-semi-bold lh-18">
+                                                            Total: <span
+                                                                class="cart-total">${{ $cart->totalPrice() }}</span>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href=" {{ route('myCart') }} "
+                                                        class="btn theme-btn w-100">
+                                                        Go to cart <i
+                                                            class="la la-arrow-right icon ml-1"></i>
+                                                    </a>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </li>
                                 </ul>

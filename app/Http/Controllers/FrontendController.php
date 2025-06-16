@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\Wishlist;
 use App\Models\CourseGoal;
 use App\Models\SubCategory;
-use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -17,6 +18,8 @@ class FrontendController extends Controller
         $popularCategories = Category::latest()->limit(6)->get();
         $categories = Category::with('courses', 'subCategories')->orderBy('name', 'ASC')->get();
         $courses = Course::with(['instructor', 'goals'])->orderBy('id', 'ASC')->get();
+        // use view composer to share cart data with all views
+        // $cart = Cart::with('courses')->where('session_id', session()->getId())->first();
         return view('frontend.index', get_defined_vars());
     }
 
@@ -25,6 +28,7 @@ class FrontendController extends Controller
         $goals = CourseGoal::where('course_id', $course->id)->orderBy('id', 'ASC')->get();
         $isWishlisted = Wishlist::where('course_id', $course->id)->where('user_id', auth()->id())
             ->exists();
+
 
 
         return view('frontend.pages.course-details', get_defined_vars());
