@@ -2,19 +2,20 @@
 
 use App\Models\CourseLecture;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CourseLectureController;
 use App\Http\Controllers\CourseSectionController;
-use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,13 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/removeFromCart/{course:slug}', 'removeFromCart')->name('removeFromCart');
     Route::get('/cartData', 'fetchCartData')->name('fetchCartData');
     Route::get('/myCart', 'myCart')->name('myCart');
+});
+
+Route::controller(CheckoutController::class)->group(function () {
+    Route::get('/checkout', 'index')->name('checkout');
+    // Route::post('/checkout/store', 'store')->name('checkout.store');
+    // Route::get('/checkout/success', 'success')->name('checkout.success');
+    // Route::get('/checkout/cancel', 'cancel')->name('checkout.cancel');
 });
 
 Route::get('/dashboard', function () {

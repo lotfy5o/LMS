@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!-- ================================
-                                                                                                                                                                        START BREADCRUMB AREA
-                                                                                                                                                                    ================================= -->
+                                                                                                                                                                            START BREADCRUMB AREA
+                                                                                                                                                                        ================================= -->
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
         <div class="container">
@@ -20,12 +20,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                                                                        END BREADCRUMB AREA
-                                                                                                                                                                    ================================= -->
+                                                                                                                                                                            END BREADCRUMB AREA
+                                                                                                                                                                        ================================= -->
 
     <!-- ================================
-                                                                                                                                                                           START CONTACT AREA
-                                                                                                                                                                    ================================= -->
+                                                                                                                                                                               START CONTACT AREA
+                                                                                                                                                                        ================================= -->
     <section class="cart-area section-padding">
         <div class="container">
             <div class="table-responsive">
@@ -115,15 +115,15 @@
                                 class="cart-total">${{ optional($cart)->totalPrice() ?? '0.00' }}</span>
                         </li>
                     </ul>
-                    <a href="checkout.html" class="btn theme-btn w-100">Checkout <i
+                    <a href="{{ route('checkout') }}" class="btn theme-btn w-100">Checkout <i
                             class="la la-arrow-right icon ml-1"></i></a>
                 </div>
             </div>
         </div><!-- end container -->
     </section>
     <!-- ================================
-                                                                                                                                                                           END CONTACT AREA
-                                                                                                                                                                    ================================= -->
+                                                                                                                                                                               END CONTACT AREA
+                                                                                                                                                                        ================================= -->
     {{-- 
     <!--======================================
             START COURSE AREA
