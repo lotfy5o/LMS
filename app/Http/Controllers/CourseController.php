@@ -212,6 +212,6 @@ class CourseController extends Controller
         }
 
 
-        return response()->json(['message' => 'User Status Updated Successfully']);
+        return response()->json(['message' => 'Course Status Updated Successfully']);
     }
 }

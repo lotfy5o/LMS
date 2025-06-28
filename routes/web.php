@@ -50,6 +50,8 @@ Route::controller(WishlistController::class)->group(
 );
 
 Route::controller(CartController::class)->group(function () {
+    Route::post('/coupon-apply', 'CouponApply')->name('coupon.apply');
+    Route::post('/coupon-remove', 'CouponRemove')->name('coupon.remove');
     Route::get('/addToCart/{course:slug}', 'addToCart')->name('addToCart');
     Route::get('/removeFromCart/{course:slug}', 'removeFromCart')->name('removeFromCart');
     Route::get('/cartData', 'fetchCartData')->name('fetchCartData');
@@ -117,7 +119,19 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::resource('teachers', TeacherController::class);
         Route::post('teachers/update/user/status', [TeacherController::class, 'UpdateUserStatus'])->name('update.user.status');
     });
+
+    // Admin Course Group
+    Route::controller(App\Http\Controllers\Admin\CourseController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::resource('courses', App\Http\Controllers\Admin\CourseController::class);
+        Route::post('/admin/courses/status/update', 'UpdateCourseStatus')->name('course.status.update');
+    });
+
+    // Admin Coupon Group
+    Route::controller(App\Http\Controllers\Admin\CouponController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
+    });
 });
+
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])
     ->name('admin.login');

@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <!-- ================================
-                                                                                                                    START BREADCRUMB AREA
-                                                                                                                ================================= -->
+                                                                                                                                                                        START BREADCRUMB AREA
+                                                                                                                                                                    ================================= -->
     <section class="breadcrumb-area section-padding img-bg-2">
         <div class="overlay"></div>
         <div class="container">
@@ -20,12 +20,12 @@
         </div><!-- end container -->
     </section><!-- end breadcrumb-area -->
     <!-- ================================
-                                                                                                                    END BREADCRUMB AREA
-                                                                                                                ================================= -->
+                                                                                                                                                                        END BREADCRUMB AREA
+                                                                                                                                                                    ================================= -->
 
     <!-- ================================
-                                                                                                                       START CONTACT AREA
-                                                                                                                ================================= -->
+                                                                                                                                                                           START CONTACT AREA
+                                                                                                                                                                    ================================= -->
     <section class="cart-area section-padding">
         <div class="container">
             <div class="table-responsive">
@@ -85,16 +85,16 @@
                     </tbody>
                 </table>
                 <div class="d-flex flex-wrap align-items-center justify-content-between pt-4">
-                    <form method="post">
-                        <div class="input-group mb-2">
-                            <input class="form-control form--control pl-3" type="text" name="search"
-                                placeholder="Coupon code">
+                    <div>
+                        <div class="input-group mb-2" id="coupon-field">
+                            <input class="form-control form--control pl-3" type="text"
+                                name="coupon_name" placeholder="Coupon code" id="coupon_name">
                             <div class="input-group-append">
-                                <button class="btn theme-btn">Apply Code</button>
+                                <button class="btn theme-btn" type="submit"
+                                    onclick="applyCoupon()">Apply Code</button>
                             </div>
                         </div>
-                    </form>
-                    <a href="#" class="btn theme-btn mb-2">Update Cart</a>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 ml-auto">
@@ -102,15 +102,17 @@
                     <h3 class="fs-18 font-weight-bold pb-3">Cart Totals</h3>
                     <div class="divider"><span></span></div>
                     <ul class="generic-list-item pb-4">
-                        <li
+                        {{-- <li
                             class="d-flex align-items-center justify-content-between font-weight-semi-bold">
                             <span class="text-black">Subtotal:</span>
-                            <span class="subtotal-total">${{ $cart->totalPrice() }}</span>
-                        </li>
+                            <span
+                                class="subtotal-total">${{ optional($cart)->totalPrice() ?? '0.00' }}</span>
+                        </li> --}}
                         <li
                             class="d-flex align-items-center justify-content-between font-weight-semi-bold">
                             <span class="text-black">Total:</span>
-                            <span class="cart-total">${{ $cart->totalPrice() }}</span>
+                            <span
+                                class="cart-total">${{ optional($cart)->totalPrice() ?? '0.00' }}</span>
                         </li>
                     </ul>
                     <a href="checkout.html" class="btn theme-btn w-100">Checkout <i
@@ -120,8 +122,8 @@
         </div><!-- end container -->
     </section>
     <!-- ================================
-                                                                                                                       END CONTACT AREA
-                                                                                                                ================================= -->
+                                                                                                                                                                           END CONTACT AREA
+                                                                                                                                                                    ================================= -->
     {{-- 
     <!--======================================
             START COURSE AREA

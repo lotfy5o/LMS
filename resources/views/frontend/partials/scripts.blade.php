@@ -315,4 +315,155 @@
                 }
             });
     }
+
+    function applyCoupon() {
+        var couponInput = document.getElementById('coupon_name');
+        var coupon_name = couponInput.value;
+
+        fetch('/coupon-apply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content') // For Laravel
+                },
+                body: JSON.stringify({
+                    coupon_name: coupon_name
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                if (!data.error) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success
+                    });
+                    if (data.validity === true) {
+                        document.getElementById('coupon-field').style.display = 'none';
+                        const totalAmount = data.total_amount; // e.g., 39.99
+                        const discountAmount = data.discount_amount; // e.g., 39.99
+                        const couponName = data.coupon_name;
+
+                        const origianl_price = document.querySelector(
+                            'li.d-flex.align-items-center.justify-content-between.font-weight-semi-bold'
+                        );
+                        origianl_price.classList.add('before-price');
+
+                        // Find the list
+                        const list = document.querySelector('.generic-list-item.pb-4');
+
+                        // Remove previous total-amount row if it exists
+                        const oldAmount = list.querySelector('.total-amount-row');
+                        if (oldAmount) oldAmount.remove();
+
+                        //////// Create new li for discounted amount///////////
+                        const coupon_name = document.createElement('li');
+                        coupon_name.className =
+                            'd-flex align-items-center justify-content-between font-weight-semi-bold total-amount-row';
+                        coupon_name.innerHTML = `
+    <span class="text-black">Coupon Name:</span>
+    <span>${data.coupon_name} <button type="button" class="icon-element icon-element-xs shadow-sm border-0" data-toggle="tooltip" data-placement="top" onclick="removeCoupon()" >
+                            <i class="la la-times"></i>
+                        </button></span>
+`;
+                        // Append to the list
+                        list.appendChild(coupon_name);
+
+
+                        //////// Create new li for discounted amount///////////
+                        const discount_amount = document.createElement('li');
+                        discount_amount.className =
+                            'd-flex align-items-center justify-content-between font-weight-semi-bold total-amount-row';
+                        discount_amount.innerHTML = `
+    <span class="text-black">Discount Amount:</span>
+    <span class="total-amount">$${parseFloat(discountAmount).toFixed(2)}</span>
+`;
+                        // Append to the list
+                        list.appendChild(discount_amount);
+
+
+
+
+                        //////// Create new li for grand total//////////
+                        const grandTotal = document.createElement('li');
+                        grandTotal.className =
+                            'd-flex align-items-center justify-content-between font-weight-semi-bold total-amount-row';
+                        grandTotal.innerHTML = `
+    <span class="text-black">Grand Total:</span>
+    <span class="total-amount">$${parseFloat(totalAmount).toFixed(2)}</span>
+`;
+                        // Append to the list
+                        list.appendChild(grandTotal);
+                    }
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function removeCoupon() {
+        fetch('/coupon-remove', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                if (!data.error) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success
+                    });
+
+                    // Show the coupon input field again
+                    document.getElementById('coupon-field').style.display = '';
+
+                    // Remove all elements with the 'total-amount-row' class (discount details)
+                    document.querySelectorAll('.total-amount-row').forEach(el => el.remove());
+
+                    // Remove the 'before-price' class from the original price element
+                    const originalPrice = document.querySelector(
+                        'li.d-flex.align-items-center.justify-content-between.font-weight-semi-bold'
+                    );
+                    if (originalPrice) {
+                        originalPrice.classList.remove('before-price');
+                    }
+
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 </script>
