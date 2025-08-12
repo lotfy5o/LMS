@@ -60,26 +60,15 @@ class PaymentController extends Controller
 
         $order->courses()->attach($cart->courses->pluck('id'));
 
-        $data = [
-            'user_id' => Auth::id(),
-            'email' => Auth::user()->email,
-            'name' => Auth::user()->name,
-            'order_id' => $order->id,
-            'payment_id' => $payment->id,
-            'invoice_no' => $payment->invoice_no,
-            'total_amount' => $total_amount,
-        ];
-
         $cart->delete();
         Session::forget('coupon');
 
         // send email with array of payment details
-        Mail::to(Auth::user()->email)->send(new OrderConfirm($data));
+        Mail::to(Auth::user()->email)->send(new OrderConfirm($payment));
 
         if ($request->payment_method == 'stripe') {
             echo "stripe";
         } else {
-
 
             $notification = array(
                 'message' => 'Cash Payment Submit Successfully',
