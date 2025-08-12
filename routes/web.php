@@ -17,6 +17,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CourseLectureController;
 use App\Http\Controllers\CourseSectionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Admin\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +143,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     // Admin Coupon Group
     Route::controller(App\Http\Controllers\Admin\CouponController::class)->prefix('/back')->name('back.')->group(function () {
         Route::resource('coupons', App\Http\Controllers\Admin\CouponController::class);
+    });
+
+    // Admin smpt settings
+    Route::controller(SettingsController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::get('smtp-settings', 'SmtpSetting')->name('smtp.settings.index');
+        Route::post('smtp-settings/update',  'SmtpUpdate')->name('smtp.settings.update');
     });
 });
 

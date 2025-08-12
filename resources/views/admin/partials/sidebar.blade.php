@@ -100,6 +100,18 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">Manage Settings</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('back.smtp.settings.index') }}"><i
+                            class='bx bx-radio-circle'></i>Smtp Settings</a>
+                </li>
+            </ul>
+        </li>
 
         <li>
             <a class="has-arrow" href="javascript:;">
