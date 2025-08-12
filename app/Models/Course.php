@@ -122,4 +122,9 @@ class Course extends Model implements HasMedia
         'discount_price' => 'decimal:2',
 
     ];
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

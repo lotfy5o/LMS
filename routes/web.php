@@ -16,6 +16,7 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CourseLectureController;
 use App\Http\Controllers\CourseSectionController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,10 @@ Route::controller(CheckoutController::class)->group(function () {
     // Route::post('/checkout/store', 'store')->name('checkout.store');
     // Route::get('/checkout/success', 'success')->name('checkout.success');
     // Route::get('/checkout/cancel', 'cancel')->name('checkout.cancel');
+});
+
+Route::controller(PaymentController::class)->group(function () {
+    Route::post('/payment', 'processDirectPayment')->name('payment');
 });
 
 Route::get('/dashboard', function () {

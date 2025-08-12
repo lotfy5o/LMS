@@ -16,7 +16,7 @@ class CartController extends Controller
     {
         $cart = Cart::firstOrCreate([
             'session_id' => session()->getId(),
-            'user_id' => auth()->user()?->id,
+            'user_id' => auth()->id() ? auth()->id() : null,
         ]);
 
         if ($cart->courses->contains($course->id)) {
