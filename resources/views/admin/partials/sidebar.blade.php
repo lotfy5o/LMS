@@ -112,6 +112,21 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">Manage Orders</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('back.orders.pending') }}"><i
+                            class='bx bx-radio-circle'></i>Pending Orders</a>
+                </li>
+                <li> <a href="{{ route('back.orders.confirmed.index') }}"><i
+                            class='bx bx-radio-circle'></i>Confirmed Orders</a>
+                </li>
+            </ul>
+        </li>
 
         <li>
             <a class="has-arrow" href="javascript:;">

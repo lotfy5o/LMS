@@ -76,3 +76,34 @@
         }
     }
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("click", function(e) {
+            if (e.target && e.target.id === "confirm") {
+                e.preventDefault();
+
+                const link = e.target.getAttribute("href");
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Confirm This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Confirm it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = link;
+                        Swal.fire(
+                            'Confirm!',
+                            'Your file has been Confirmed.',
+                            'success'
+                        );
+                    }
+                });
+            }
+        });
+    });
+</script>
