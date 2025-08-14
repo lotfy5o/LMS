@@ -197,7 +197,10 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::resource('courses.lectures', CourseLectureController::class);
     // Route::post('/save-lecture', [CourseLectureController::class, 'store']);
 
-
+    Route::controller(App\Http\Controllers\instructor\OrderController::class)->prefix('/instructor')->name('instructor.')->group(function () {
+        Route::get('orders', 'index')->name('orders.index');
+        Route::get('orders/details/{id}', 'OrderDetails')->name('orders.details');
+    });
 });
 
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])
