@@ -150,6 +150,14 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('smtp-settings', 'SmtpSetting')->name('smtp.settings.index');
         Route::post('smtp-settings/update',  'SmtpUpdate')->name('smtp.settings.update');
     });
+
+    // Admin manage orders
+    Route::controller(App\Http\Controllers\admin\OrderController::class)->prefix('/back')->name('back.')->group(function () {
+        Route::get('orders/pending', 'PendingOrders')->name('orders.pending');
+        Route::get('orders/confirmed', 'ConfirmedOrders')->name('orders.confirmed.index');
+        Route::get('orders/details/{id}', 'OrderDetails')->name('orders.details');
+        Route::get('orders/confirmed{id}', 'ConfirmOrder')->name('orders.confirm');
+    });
 });
 
 
@@ -188,6 +196,8 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::resource('courses.sections', CourseSectionController::class);
     Route::resource('courses.lectures', CourseLectureController::class);
     // Route::post('/save-lecture', [CourseLectureController::class, 'store']);
+
+
 });
 
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])
