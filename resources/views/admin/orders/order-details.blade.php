@@ -168,7 +168,7 @@
                                             </td>
                                         </tr>
 
-                                        @foreach ($order->courses as $course)
+                                        @foreach ($courses as $course)
                                             <tr>
                                                 <td class="col-md-1">
                                                     <label><img
@@ -198,7 +198,8 @@
                                         <tr>
                                             <td colspan="4"></td>
                                             <td class="col-md-3">
-                                                <strong>Total Price : ${{ $total_price }}</strong>
+                                                <strong>Total Price :
+                                                    {{-- ${{ $payment->total_price }}</strong> --}}
                                             </td>
                                         </tr>
 
