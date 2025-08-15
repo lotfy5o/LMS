@@ -200,6 +200,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(App\Http\Controllers\instructor\OrderController::class)->prefix('/instructor')->name('instructor.')->group(function () {
         Route::get('orders', 'index')->name('orders.index');
         Route::get('orders/details/{id}', 'OrderDetails')->name('orders.details');
+        Route::get('orders/invoice/{id}', 'OrderInvoice')->name('orders.invoice');
     });
 });
 

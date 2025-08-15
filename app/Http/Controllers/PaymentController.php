@@ -58,6 +58,12 @@ class PaymentController extends Controller
             'payment_id' => $payment->id,
         ]);
 
+        // foreach ($cart->courses as $course) {
+        //     $order->courses()->attach($course->id, [
+        //         'instructor_id' => $course->instructor_id
+        //     ]);
+        // } 
+
         $order->courses()->attach($cart->courses->pluck('id'));
 
         $cart->delete();

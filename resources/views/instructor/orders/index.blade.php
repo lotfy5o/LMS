@@ -46,7 +46,10 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td> {{ $order->payment->created_at->format('d M Y') }} </td>
                                         <td>{{ $order->payment->invoice_no }}</td>
-                                        <td>{{ $order->payment->total_amount }}</td>
+                                        <td>
+                                            {{ $order->courses->where('instructor_id', auth()->id())->sum('discount_price') ??
+                                                $order->courses->where('instructor_id', auth()->id())->sum('selling_price') }}
+                                        </td>
                                         <td>{{ $order->payment->payment_method }}</td>
 
                                         <td> <span
@@ -65,8 +68,9 @@
                                             <a href="{{ route('instructor.orders.details', $order->payment->id) }}"
                                                 class="btn btn-info" title="Info"><i
                                                     class="lni lni-eye"></i> </a>
-                                            <a href="#" class="btn btn-danger" id="delete"
-                                                title="delete"><i class="lni lni-download"></i> </a>
+                                            <a href="{{ route('instructor.orders.invoice', $order->payment->id) }}"
+                                                class="btn btn-danger" title="Invoice"><i
+                                                    class="lni lni-download"></i> </a>
 
                                         </td>
                                     </tr>
