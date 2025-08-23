@@ -43,6 +43,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/categories/{category}/{subcategory}', 'subcategoryDetails')->name('frontend.subcategoryDetails');
 });
 
+
+
 Route::controller(WishlistController::class)->group(
     function () {
         Route::post('/course/toggle-wishlist', 'toggleWishlist');
@@ -84,6 +86,13 @@ Route::middleware('auth')->group(function () {
 
 //User Group
 Route::middleware('auth')->group(function () {
+
+    Route::controller(App\Http\Controllers\user\CourseController::class)->group(function () {
+        Route::get('/user/courses', 'index')->name('user.courses.index');
+        Route::get('/user/courses/{course:slug}', 'show')->name('user.courses.show');
+    });
+
+
     Route::get('/user/profile', [UserController::class, 'UserProfileEdit'])->name('user.profile.edit');
     Route::post('user/profile/update', [UserController::class, 'UserProfileUpdate'])->name('user.profile.update');
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
