@@ -25,7 +25,7 @@ class StoreCourseLectureRequest extends FormRequest
         return [
             'section_id' => 'required|exists:course_sections,id',
             'title' => 'required|string|max:255',
-            'url' => 'required|string',
+            'url' => 'nullable|url|max:255',
             'content' => 'nullable|string',
         ];
     }
