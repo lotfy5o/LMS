@@ -56,4 +56,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Order::class);
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

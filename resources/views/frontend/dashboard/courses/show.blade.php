@@ -1249,46 +1249,27 @@
                                                 <div class="new-question-body pt-40px">
                                                     <h3 class="fs-20 font-weight-semi-bold">My
                                                         question relates to</h3>
-                                                    <form action="#" class="pt-4">
+                                                    <form method="post"
+                                                        action="{{ route('user.questions.store') }}"
+                                                        class="pt-4">
+                                                        @csrf
+
+                                                        <input type="hidden" name="course_id"
+                                                            value="{{ $course->id }}">
+                                                        <input type="hidden" name="instructor_id"
+                                                            value="{{ $course->instructor_id }}">
                                                         <div class="custom-control-wrap">
                                                             <div
                                                                 class="custom-control custom-radio mb-3 pl-0">
-                                                                <input type="radio"
-                                                                    class="custom-control-input"
-                                                                    id="courseContentRadio"
-                                                                    name="radio-stacked" required>
-                                                                <label
-                                                                    class="custom-control-label custom--control-label custom--control-label-boxed"
-                                                                    for="courseContentRadio">
-                                                                    <span
-                                                                        class="font-weight-semi-bold text-black d-block">Course
-                                                                        content</span>
-                                                                    <span
-                                                                        class="d-block fs-14 lh-20">This
-                                                                        might include comments,
-                                                                        questions, tips, or projects
-                                                                        to share</span>
-                                                                </label>
+                                                                <input type="text"
+                                                                    name="subject"
+                                                                    class="form-control form--control pl-3">
+
                                                             </div>
                                                             <div
                                                                 class="custom-control custom-radio mb-3 pl-0">
-                                                                <input type="radio"
-                                                                    class="custom-control-input"
-                                                                    id="somethingElseRadio"
-                                                                    name="radio-stacked" required>
-                                                                <label
-                                                                    class="custom-control-label custom--control-label custom--control-label-boxed"
-                                                                    for="somethingElseRadio">
-                                                                    <span
-                                                                        class="font-weight-semi-bold text-black d-block">Something
-                                                                        else</span>
-                                                                    <span
-                                                                        class="d-block fs-14 lh-20">This
-                                                                        might include questions
-                                                                        about certificates, audio
-                                                                        and video troubleshooting,
-                                                                        or download issues</span>
-                                                                </label>
+                                                                <textarea class="form-control form--control pl-3" name="question" rows="4"
+                                                                    placeholder="Write your response..."></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="btn-box text-center">
@@ -1305,278 +1286,180 @@
                                                     class="btn theme-btn theme-btn-transparent back-to-question-btn"><i
                                                         class="la la-reply mr-1"></i>Back to all
                                                     questions</button>
-                                                <div class="replay-question-body pt-30px">
-                                                    <div class="question-list-item">
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4">
+                                                @foreach ($questions as $question)
+                                                    <div class="replay-question-body pt-30px">
+                                                        <div class="question-list-item">
                                                             <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-1.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
+                                                                class="media media-card border-bottom border-bottom-gray py-4">
                                                                 <div
-                                                                    class="d-flex justify-content-between">
+                                                                    class="media-img rounded-full flex-shrink-0 avatar-sm">
+                                                                    <img class="rounded-full"
+                                                                        src="{{ asset('asset-front') }}/images/small-avatar-1.jpg"
+                                                                        alt="User image">
+                                                                </div>
+                                                                <div class="media-body">
                                                                     <div
-                                                                        class="question-meta-content">
-                                                                        <h5 class="fs-16 pb-1">I
-                                                                            still did't get H264
-                                                                            after installing
-                                                                            Quicktime. Please what
-                                                                            do I do</h5>
-                                                                        <p class="meta-tags fs-13">
-                                                                            <a href="#">Alex
-                                                                                Smith</a>
-                                                                            <a href="#">Lecture
-                                                                                20</a>
-                                                                            <span>3 hours ago</span>
-                                                                        </p>
-                                                                        <p class="fs-15 text-gray">
-                                                                            Lorem ipsum dolor sit
-                                                                            amet, consectetur
-                                                                            adipisicing elit,
-                                                                            sed do eiusmod tempor
-                                                                            incididunt ut labore et
-                                                                            dolore magna aliqua.
-                                                                            Ut enim ad minim veniam,
-                                                                            quis nostrud
-                                                                            exercitation.
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
+                                                                        class="d-flex justify-content-between">
                                                                         <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center generic-action-wrap">
-                                                                            <span>1</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                            <div class="dropdown">
+                                                                            class="question-meta-content">
+                                                                            <h5 class="fs-16 pb-1">
+                                                                                {{ $question->subject }}
+                                                                            </h5>
+                                                                            <p
+                                                                                class="meta-tags fs-13">
+                                                                                <a href="#">
+                                                                                    {{ $question->user->name }}
+                                                                                </a>
+                                                                                <a href="#">Lecture
+                                                                                    20</a>
+                                                                                <span>{{ Carbon\Carbon::parse($question->created_at)->diffForHumans() }}</span>
+                                                                            </p>
+                                                                            <p
+                                                                                class="fs-15 text-gray">
+                                                                                {{ $question->question }}
+                                                                            </p>
+                                                                        </div>
+                                                                        <!-- end question-meta-content -->
+                                                                        <div
+                                                                            class="question-upvote-action">
+                                                                            <div
+                                                                                class="number-upvotes pb-2 d-flex align-items-center generic-action-wrap">
+                                                                                <span>1</span>
                                                                                 <button
-                                                                                    class="ml-0"
-                                                                                    type="button"
-                                                                                    data-toggle="dropdown"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false">
-                                                                                    <i
-                                                                                        class="la la-ellipsis-v"></i>
-                                                                                </button>
+                                                                                    type="button"><i
+                                                                                        class="la la-arrow-up"></i></button>
                                                                                 <div
-                                                                                    class="dropdown-menu dropdown-menu-right">
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#"
-                                                                                        data-toggle="modal"
-                                                                                        data-target="#reportModal"><i
-                                                                                            class="la la-flag mr-1"></i>
-                                                                                        Report
-                                                                                        abuse</a>
+                                                                                    class="dropdown">
+                                                                                    <button
+                                                                                        class="ml-0"
+                                                                                        type="button"
+                                                                                        data-toggle="dropdown"
+                                                                                        aria-haspopup="true"
+                                                                                        aria-expanded="false">
+                                                                                        <i
+                                                                                            class="la la-ellipsis-v"></i>
+                                                                                    </button>
+                                                                                    <div
+                                                                                        class="dropdown-menu dropdown-menu-right">
+                                                                                        <a class="dropdown-item"
+                                                                                            href="#"
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#reportModal"><i
+                                                                                                class="la la-flag mr-1"></i>
+                                                                                            Report
+                                                                                            abuse</a>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <!-- end question-upvote-action -->
                                                                     </div>
-                                                                    <!-- end question-upvote-action -->
-                                                                </div>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
-                                                        <div
-                                                            class="question-replay-separator-wrap d-flex align-items-center justify-content-between py-3">
-                                                            <h4
-                                                                class="fs-16 font-weight-semi-bold">
-                                                                1 Replay</h4>
-                                                            <button
-                                                                class="btn swapping-btn text-gray font-weight-medium"
-                                                                data-text-swap="Following replies"
-                                                                data-text-original="Follow replies">Follow
-                                                                replies</button>
-                                                        </div>
-                                                        <!-- end question-replay-separator-wrap -->
-                                                        <div class="section-block"></div>
-                                                        <div class="question-answer-wrap">
-                                                            <div
-                                                                class="media media-card mb-3 border-bottom border-bottom-gray py-4">
-                                                                <div
-                                                                    class="media-img rounded-full avatar-sm flex-shrink-0">
-                                                                    <img src="{{ asset('asset-front') }}/images/small-avatar-2.jpg"
-                                                                        alt="Instructor avatar"
-                                                                        class="rounded-full">
-                                                                </div><!-- end media-img -->
-                                                                <div class="media-body">
-                                                                    <h5 class="fs-16"><a
-                                                                            href="#">David
-                                                                            Luise</a></h5>
-                                                                    <span class="fs-14">3 years
-                                                                        ago</span>
-                                                                    <p class="pt-1 fs-15">Occaecati
-                                                                        cupiditate non provident,
-                                                                        similique sunt in culpa
-                                                                        fuga.</p>
                                                                 </div><!-- end media-body -->
                                                             </div><!-- end media -->
                                                             <div
-                                                                class="question-replay-input-wrap pt-20px">
-                                                                <div class="question-replay-body">
-                                                                    <h3
-                                                                        class="fs-16 font-weight-semi-bold">
-                                                                        Add Replay</h3>
-                                                                    <form method="post"
-                                                                        class="pt-4">
+                                                                class="question-replay-separator-wrap d-flex align-items-center justify-content-between py-3">
+                                                                <h4
+                                                                    class="fs-16 font-weight-semi-bold">
+                                                                    {{ $question->replies->count() }}
+                                                                    {{ $question->replies->count() === 1 ? 'Reply' : 'Replies' }}
+                                                                </h4>
+                                                                <button
+                                                                    class="btn swapping-btn text-gray font-weight-medium"
+                                                                    data-text-swap="Following replies"
+                                                                    data-text-original="Follow replies">Follow
+                                                                    replies</button>
+                                                            </div>
+                                                            <!-- end question-replay-separator-wrap -->
+                                                            <div class="section-block"></div>
+                                                            <div class="question-answer-wrap">
+                                                                @foreach ($question->replies as $reply)
+                                                                    <div
+                                                                        class="media media-card mb-3 border-bottom border-bottom-gray py-4">
                                                                         <div
-                                                                            class="replay-action-bar">
-                                                                            <div class="btn-group">
+                                                                            class="media-img rounded-full avatar-sm flex-shrink-0">
+                                                                            <img src="{{ asset('asset-front') }}/images/small-avatar-2.jpg"
+                                                                                alt="Instructor avatar"
+                                                                                class="rounded-full">
+                                                                        </div><!-- end media-img -->
+                                                                        <div class="media-body">
+                                                                            <h5 class="fs-16"><a
+                                                                                    href="#">
+                                                                                    {{ $reply->course->instructor->name }}
+                                                                                </a></h5>
+                                                                            <span class="fs-14">3
+                                                                                years
+                                                                                ago</span>
+                                                                            <p class="pt-1 fs-15">
+                                                                                Occaecati
+                                                                                cupiditate non
+                                                                                provident,
+                                                                                similique sunt in
+                                                                                culpa
+                                                                                fuga.</p>
+                                                                        </div>
+                                                                        <!-- end media-body -->
+                                                                    </div><!-- end media -->
+                                                                @endforeach
+                                                                <div
+                                                                    class="question-replay-input-wrap pt-20px">
+                                                                    <div
+                                                                        class="question-replay-body">
+                                                                        <h3
+                                                                            class="fs-16 font-weight-semi-bold">
+                                                                            Add Replay</h3>
+                                                                        <form method="post"
+                                                                            class="pt-4">
+                                                                            <div
+                                                                                class="replay-action-bar">
+                                                                                <div
+                                                                                    class="btn-group">
+                                                                                    <button
+                                                                                        class="btn"
+                                                                                        type="button"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#insertLinkModal"
+                                                                                        title="Insert link"><i
+                                                                                            class="la la-link"></i></button>
+                                                                                    <button
+                                                                                        class="btn"
+                                                                                        type="button"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#uploadPhotoModal"
+                                                                                        title="Upload an image"><i
+                                                                                            class="la la-photo"></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="form-group">
+                                                                                <textarea class="form-control form--control pl-3" name="message" rows="4"
+                                                                                    placeholder="Write your response..."></textarea>
+                                                                            </div>
+                                                                            <div class="btn-box">
                                                                                 <button
-                                                                                    class="btn"
-                                                                                    type="button"
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#insertLinkModal"
-                                                                                    title="Insert link"><i
-                                                                                        class="la la-link"></i></button>
-                                                                                <button
-                                                                                    class="btn"
-                                                                                    type="button"
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#uploadPhotoModal"
-                                                                                    title="Upload an image"><i
-                                                                                        class="la la-photo"></i></button>
+                                                                                    class="btn theme-btn"
+                                                                                    type="submit">Add
+                                                                                    an answer <i
+                                                                                        class="la la-arrow-right icon ml-1"></i></button>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <textarea class="form-control form--control pl-3" name="message" rows="4"
-                                                                                placeholder="Write your response..."></textarea>
-                                                                        </div>
-                                                                        <div class="btn-box">
-                                                                            <button
-                                                                                class="btn theme-btn"
-                                                                                type="submit">Add
-                                                                                an answer <i
-                                                                                    class="la la-arrow-right icon ml-1"></i></button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end question-replay-input-wrap -->
-                                                        </div><!-- end question-answer-wrap -->
-                                                    </div><!-- end question-list-item -->
-                                                </div><!-- end replay-question-body -->
-                                            </div><!-- end replay-question-wrap -->
-                                            <div class="question-overview-result-wrap">
-                                                <div class="lecture-overview-item">
-                                                    <form method="post">
-                                                        <div class="input-group mb-3">
-                                                            <input
-                                                                class="form-control form--control form--control-gray pl-3"
-                                                                type="text" name="search"
-                                                                placeholder="Search all course questions">
-                                                            <div class="input-group-append">
-                                                                <button class="btn theme-btn"><i
-                                                                        class="la la-search search-icon"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                    <div
-                                                        class="question-overview-filter-wrap d-flex align-items-center">
-                                                        <div class="question-overview-filter-item">
-                                                            <div class="select-container w-100">
-                                                                <select
-                                                                    class="select-container-select">
-                                                                    <option value="0">All
-                                                                        lectures</option>
-                                                                    <option value="1">Current
-                                                                        lecture</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end question-overview-filter-item -->
-                                                        <div class="question-overview-filter-item">
-                                                            <div class="select-container w-100">
-                                                                <select
-                                                                    class="select-container-select">
-                                                                    <option value="0">Sort by
-                                                                        most recent</option>
-                                                                    <option value="1">Sort by
-                                                                        most upvoted</option>
-                                                                    <option value="2">Sort by
-                                                                        recommended</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end question-overview-filter-item -->
-                                                        <div class="question-overview-filter-item">
-                                                            <div class="generic-action-wrap">
-                                                                <div class="dropdown">
-                                                                    <a class="btn theme-btn theme-btn-transparent w-100"
-                                                                        href="#"
-                                                                        data-toggle="dropdown"
-                                                                        aria-haspopup="true"
-                                                                        aria-expanded="false">
-                                                                        Filter questions
-                                                                    </a>
-                                                                    <div class="dropdown-menu">
-                                                                        <div class="dropdown-item">
-                                                                            <div
-                                                                                class="custom-control custom-checkbox fs-15">
-                                                                                <input
-                                                                                    type="checkbox"
-                                                                                    class="custom-control-input"
-                                                                                    id="questionsCheckbox"
-                                                                                    required>
-                                                                                <label
-                                                                                    class="custom-control-label custom--control-label"
-                                                                                    for="questionsCheckbox">
-                                                                                    Questions I'm
-                                                                                    following
-                                                                                </label>
-                                                                            </div>
-                                                                            <!-- end custom-control -->
-                                                                        </div>
-                                                                        <div class="dropdown-item">
-                                                                            <div
-                                                                                class="custom-control custom-checkbox fs-15">
-                                                                                <input
-                                                                                    type="checkbox"
-                                                                                    class="custom-control-input"
-                                                                                    id="questionsCheckbox2"
-                                                                                    required>
-                                                                                <label
-                                                                                    class="custom-control-label custom--control-label"
-                                                                                    for="questionsCheckbox2">
-                                                                                    Questions I
-                                                                                    asked
-                                                                                </label>
-                                                                            </div>
-                                                                            <!-- end custom-control -->
-                                                                        </div>
-                                                                        <div class="dropdown-item">
-                                                                            <div
-                                                                                class="custom-control custom-checkbox fs-15">
-                                                                                <input
-                                                                                    type="checkbox"
-                                                                                    class="custom-control-input"
-                                                                                    id="questionsCheckbox3"
-                                                                                    required>
-                                                                                <label
-                                                                                    class="custom-control-label custom--control-label"
-                                                                                    for="questionsCheckbox3">
-                                                                                    Questions
-                                                                                    without
-                                                                                    responses
-                                                                                </label>
-                                                                            </div>
-                                                                            <!-- end custom-control -->
-                                                                        </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
-                                                            </div><!-- end generic-action-wrap -->
-                                                        </div>
-                                                        <!-- end question-overview-filter-item -->
-                                                    </div>
-                                                </div><!-- end lecture-overview-item -->
+                                                                <!-- end question-replay-input-wrap -->
+                                                            </div><!-- end question-answer-wrap -->
+                                                        </div><!-- end question-list-item -->
+                                                    </div><!-- end replay-question-body -->
+                                                @endforeach
+                                            </div><!-- end replay-question-wrap -->
+                                            <div class="question-overview-result-wrap">
+
+                                                {{-- @include('frontend.dashboard.courses.show-partials.search-question') --}}
+
+
                                                 <div class="lecture-overview-item">
                                                     <div
                                                         class="question-overview-result-header d-flex align-items-center justify-content-between">
-                                                        <h3 class="fs-17 font-weight-semi-bold">30
-                                                            questions in this course</h3>
+                                                        <h3 class="fs-17 font-weight-semi-bold">
+                                                            {{ count($questions) }}</h3>
                                                         <button
                                                             class="btn theme-btn theme-btn-sm theme-btn-transparent ask-new-question-btn">Ask
                                                             a new question</button>
@@ -1585,316 +1468,64 @@
                                                 <div class="section-block"></div>
                                                 <div class="lecture-overview-item mt-0">
                                                     <div class="question-list-item">
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4 px-3">
+                                                        @foreach ($questions as $question)
                                                             <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-1.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
+                                                                class="media media-card border-bottom border-bottom-gray py-4 px-3">
                                                                 <div
-                                                                    class="d-flex align-items-center justify-content-between">
-                                                                    <div
-                                                                        class="question-meta-content">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="d-block">
-                                                                            <h5 class="fs-16 pb-1">
-                                                                                I still did't get
-                                                                                H264 after
-                                                                                installing
-                                                                                Quicktime. Please
-                                                                                what do I do</h5>
-                                                                            <p
-                                                                                class="text-truncate fs-15 text-gray">
-                                                                                Lorem ipsum dolor
-                                                                                sit amet,
-                                                                                consectetur
-                                                                                adipisicing elit,
-                                                                                sed do eiusmod
-                                                                                tempor incididunt ut
-                                                                                labore et dolore
-                                                                                magna aliqua.
-                                                                                Ut enim ad minim
-                                                                                veniam, quis nostrud
-                                                                                exercitation.
-                                                                            </p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
-                                                                        <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center">
-                                                                            <span>1</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                        </div>
-                                                                        <div
-                                                                            class="number-upvotes question-response d-flex align-items-center">
-                                                                            <span>1</span>
-                                                                            <button type="button"
-                                                                                class="question-replay-btn"><i
-                                                                                    class="la la-comments"></i></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- end question-upvote-action -->
+                                                                    class="media-img rounded-full flex-shrink-0 avatar-sm">
+                                                                    <img class="rounded-full"
+                                                                        src="{{ asset('asset-front') }}/images/small-avatar-1.jpg"
+                                                                        alt="User image">
                                                                 </div>
-                                                                <p class="meta-tags pt-1 fs-13">
-                                                                    <a href="#">Alex
-                                                                        Smith</a>
-                                                                    <a href="#">Lecture
-                                                                        20</a>
-                                                                    <span>3 hours ago</span>
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4 px-3">
-                                                            <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-2.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between">
+                                                                <div class="media-body">
                                                                     <div
-                                                                        class="question-meta-content">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="d-block">
-                                                                            <h5 class="fs-16 pb-1">
-                                                                                When i selected
-                                                                                rectangle and placed
-                                                                                it its create mask ?
-                                                                                I cant solve this
-                                                                            </h5>
-                                                                            <p
-                                                                                class="text-truncate fs-15 text-gray">
-                                                                                Lorem ipsum dolor
-                                                                                sit amet,
-                                                                                consectetur
-                                                                                adipisicing elit,
-                                                                                sed do eiusmod
-                                                                                tempor incididunt ut
-                                                                                labore et dolore
-                                                                                magna aliqua.
-                                                                                Ut enim ad minim
-                                                                                veniam, quis nostrud
-                                                                                exercitation.
-                                                                            </p>
+                                                                        class="d-flex align-items-center justify-content-between">
+                                                                        <div
+                                                                            class="question-meta-content">
+                                                                            <a href="javascript:void(0)"
+                                                                                class="d-block">
+                                                                                <h5
+                                                                                    class="fs-16 pb-1">
+                                                                                    {{ $question->subject }}
+                                                                                </h5>
+                                                                                <p
+                                                                                    class="text-truncate fs-15 text-gray">
+                                                                                    {{ $question->question }}
+                                                                                </p>
+                                                                            </a>
+                                                                        </div>
+                                                                        <!-- end question-meta-content -->
+                                                                        <div
+                                                                            class="question-upvote-action">
+                                                                            <div
+                                                                                class="number-upvotes pb-2 d-flex align-items-center">
+                                                                                <span>1</span>
+                                                                                <button
+                                                                                    type="button"><i
+                                                                                        class="la la-arrow-up"></i></button>
+                                                                            </div>
+                                                                            <div
+                                                                                class="number-upvotes question-response d-flex align-items-center">
+                                                                                <span>1</span>
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="question-replay-btn"><i
+                                                                                        class="la la-comments"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- end question-upvote-action -->
+                                                                    </div>
+                                                                    <p
+                                                                        class="meta-tags pt-1 fs-13">
+                                                                        <a href="#">
+                                                                            {{ $question->user->name }}
                                                                         </a>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
-                                                                        <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                        </div>
-                                                                        <div
-                                                                            class="number-upvotes question-response d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button type="button"
-                                                                                class="question-replay-btn"><i
-                                                                                    class="la la-comments"></i></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- end question-upvote-action -->
-                                                                </div>
-                                                                <p class="meta-tags pt-1 fs-13">
-                                                                    <a href="#">Alex
-                                                                        Smith</a>
-                                                                    <a href="#">Lecture
-                                                                        20</a>
-                                                                    <span>3 hours ago</span>
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4 px-3">
-                                                            <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-3.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between">
-                                                                    <div
-                                                                        class="question-meta-content">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="d-block">
-                                                                            <h5 class="fs-16 pb-1">
-                                                                                Practice Activity
-                                                                            </h5>
-                                                                            <p
-                                                                                class="text-truncate fs-15 text-gray">
-                                                                                https://youtu.be/fzyAWYKh2pgg
-                                                                            </p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
-                                                                        <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                        </div>
-                                                                        <div
-                                                                            class="number-upvotes question-response d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button type="button"
-                                                                                class="question-replay-btn"><i
-                                                                                    class="la la-comments"></i></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- end question-upvote-action -->
-                                                                </div>
-                                                                <p class="meta-tags pt-1 fs-13">
-                                                                    <a href="#">Alex
-                                                                        Smith</a>
-                                                                    <a href="#">Lecture
-                                                                        20</a>
-                                                                    <span>3 hours ago</span>
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4 px-3">
-                                                            <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-4.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between">
-                                                                    <div
-                                                                        class="question-meta-content">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="d-block">
-                                                                            <h5 class="fs-16 pb-1">
-                                                                                The walking man
-                                                                                composition.</h5>
-                                                                            <p
-                                                                                class="text-truncate fs-15 text-gray">
-                                                                                Lorem ipsum dolor
-                                                                                sit amet,
-                                                                                consectetur
-                                                                                adipisicing elit,
-                                                                                sed do eiusmod
-                                                                                tempor incididunt ut
-                                                                                labore et dolore
-                                                                                magna aliqua.
-                                                                                Ut enim ad minim
-                                                                                veniam, quis nostrud
-                                                                                exercitation.
-                                                                            </p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
-                                                                        <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                        </div>
-                                                                        <div
-                                                                            class="number-upvotes question-response d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button type="button"
-                                                                                class="question-replay-btn"><i
-                                                                                    class="la la-comments"></i></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- end question-upvote-action -->
-                                                                </div>
-                                                                <p class="meta-tags pt-1 fs-13">
-                                                                    <a href="#">Alex
-                                                                        Smith</a>
-                                                                    <a href="#">Lecture
-                                                                        20</a>
-                                                                    <span>3 hours ago</span>
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
-                                                        <div
-                                                            class="media media-card border-bottom border-bottom-gray py-4 px-3">
-                                                            <div
-                                                                class="media-img rounded-full flex-shrink-0 avatar-sm">
-                                                                <img class="rounded-full"
-                                                                    src="{{ asset('asset-front') }}/images/small-avatar-5.jpg"
-                                                                    alt="User image">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between">
-                                                                    <div
-                                                                        class="question-meta-content">
-                                                                        <a href="javascript:void(0)"
-                                                                            class="d-block">
-                                                                            <h5 class="fs-16 pb-1">
-                                                                                Record options</h5>
-                                                                            <p
-                                                                                class="text-truncate fs-15 text-gray">
-                                                                                Lorem ipsum dolor
-                                                                                sit amet,
-                                                                                consectetur
-                                                                                adipisicing elit,
-                                                                                sed do eiusmod
-                                                                                tempor incididunt ut
-                                                                                labore et dolore
-                                                                                magna aliqua.
-                                                                                Ut enim ad minim
-                                                                                veniam, quis nostrud
-                                                                                exercitation.
-                                                                            </p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <!-- end question-meta-content -->
-                                                                    <div
-                                                                        class="question-upvote-action">
-                                                                        <div
-                                                                            class="number-upvotes pb-2 d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button
-                                                                                type="button"><i
-                                                                                    class="la la-arrow-up"></i></button>
-                                                                        </div>
-                                                                        <div
-                                                                            class="number-upvotes question-response d-flex align-items-center">
-                                                                            <span>0</span>
-                                                                            <button type="button"
-                                                                                class="question-replay-btn"><i
-                                                                                    class="la la-comments"></i></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- end question-upvote-action -->
-                                                                </div>
-                                                                <p class="meta-tags pt-1 fs-13">
-                                                                    <a href="#">Alex
-                                                                        Smith</a>
-                                                                    <a href="#">Lecture
-                                                                        20</a>
-                                                                    <span>3 hours ago</span>
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
+                                                                        <span>{{ Carbon\Carbon::parse($question->created_at)->diffForHumans() }}</span>
+                                                                    </p>
+                                                                </div><!-- end media-body -->
+                                                            </div><!-- end media -->
+                                                        @endforeach
+
                                                     </div>
                                                     <div
                                                         class="question-btn-box pt-35px text-center">
@@ -2022,33 +1653,7 @@
                                                                 </p>
                                                             </div><!-- end media-body -->
                                                         </div><!-- end media -->
-                                                        <div
-                                                            class="media media-card mb-3 border-bottom border-bottom-gray pb-3">
-                                                            <div
-                                                                class="media-img rounded-full avatar-sm flex-shrink-0">
-                                                                <img src="{{ asset('asset-front') }}/images/small-avatar-3.jpg"
-                                                                    alt="Instructor avatar"
-                                                                    class="rounded-full">
-                                                            </div><!-- end media-img -->
-                                                            <div class="media-body">
-                                                                <div
-                                                                    class="announcement-meta fs-15 lh-20">
-                                                                    <a href="#"
-                                                                        class="text-color">Eduard-Dan</a>
-                                                                    <span> · 2 years ago ·</span>
-                                                                    <a href="#"
-                                                                        class="btn-text"
-                                                                        data-toggle="modal"
-                                                                        data-target="#reportModal"
-                                                                        title="Report abuse"><i
-                                                                            class="la la-flag"></i></a>
-                                                                </div>
-                                                                <p class="pt-1">Occaecati
-                                                                    cupiditate non provident,
-                                                                    similique sunt in culpa fuga.
-                                                                </p>
-                                                            </div><!-- end media-body -->
-                                                        </div><!-- end media -->
+
                                                     </div><!-- end comments -->
                                                 </div><!-- end lecture-announcement-comment-wrap -->
                                             </div><!-- end lecture-overview-item -->
@@ -2057,155 +1662,9 @@
                                 </div><!-- end tab-content -->
                             </div><!-- end lecture-video-detail-body -->
                         </div><!-- end lecture-video-detail -->
-                        <div class="cta-area py-4 bg-gray">
-                            <div class="container-fluid">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-6">
-                                        <div class="cta-content-wrap">
-                                            <h3 class="fs-18 font-weight-semi-bold">Top companies
-                                                choose <a href="for-business.html"
-                                                    class="text-color hover-underline">Aduca for
-                                                    Business</a> to build in-demand career skills.
-                                            </h3>
-                                        </div>
-                                    </div><!-- end col-lg-6 -->
-                                    <div class="col-lg-6">
-                                        <div class="client-logo-wrap text-right">
-                                            <a href="#"
-                                                class="client-logo-item client--logo-item-2 pr-3"><img
-                                                    src="{{ asset('asset-front') }}/images/sponsor-img.png"
-                                                    alt="brand image"></a>
-                                            <a href="#"
-                                                class="client-logo-item client--logo-item-2 pr-3"><img
-                                                    src="{{ asset('asset-front') }}/images/sponsor-img2.png"
-                                                    alt="brand image"></a>
-                                            <a href="#"
-                                                class="client-logo-item client--logo-item-2 pr-3"><img
-                                                    src="{{ asset('asset-front') }}/images/sponsor-img3.png"
-                                                    alt="brand image"></a>
-                                        </div><!-- end client-logo-wrap -->
-                                    </div><!-- end col-lg-6 -->
-                                </div><!-- end row -->
-                            </div><!-- end container-fluid -->
-                        </div><!-- end cta-area -->
-                        <div class="footer-area pt-50px">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-3 responsive-column-half">
-                                        <div class="footer-item">
-                                            <a href="index.html">
-                                                <img src="{{ asset('asset-front') }}/images/logo.png"
-                                                    alt="footer logo" class="footer__logo">
-                                            </a>
-                                            <ul class="generic-list-item pt-4">
-                                                <li><a href="tel:+1631237884">+163 123 7884</a>
-                                                </li>
-                                                <li><a
-                                                        href="mailto:support@wbsite.com">support@website.com</a>
-                                                </li>
-                                                <li>Melbourne, Australia, 105 South Park Avenue</li>
-                                            </ul>
-                                        </div><!-- end footer-item -->
-                                    </div><!-- end col-lg-3 -->
-                                    <div class="col-lg-3 responsive-column-half">
-                                        <div class="footer-item">
-                                            <h3 class="fs-20 font-weight-semi-bold pb-3">Company
-                                            </h3>
-                                            <ul class="generic-list-item">
-                                                <li><a href="#">About us</a></li>
-                                                <li><a href="#">Contact us</a></li>
-                                                <li><a href="#">Become a Teacher</a></li>
-                                                <li><a href="#">Support</a></li>
-                                                <li><a href="#">FAQs</a></li>
-                                                <li><a href="#">Blog</a></li>
-                                            </ul>
-                                        </div><!-- end footer-item -->
-                                    </div><!-- end col-lg-3 -->
-                                    <div class="col-lg-3 responsive-column-half">
-                                        <div class="footer-item">
-                                            <h3 class="fs-20 font-weight-semi-bold pb-3">Courses
-                                            </h3>
-                                            <ul class="generic-list-item">
-                                                <li><a href="#">Web Development</a></li>
-                                                <li><a href="#">Hacking</a></li>
-                                                <li><a href="#">PHP Learning</a></li>
-                                                <li><a href="#">Spoken English</a></li>
-                                                <li><a href="#">Self-Driving Car</a></li>
-                                                <li><a href="#">Garbage Collectors</a></li>
-                                            </ul>
-                                        </div><!-- end footer-item -->
-                                    </div><!-- end col-lg-3 -->
-                                    <div class="col-lg-3 responsive-column-half">
-                                        <div class="footer-item">
-                                            <h3 class="fs-20 font-weight-semi-bold pb-3">Download
-                                                App</h3>
-                                            <div class="mobile-app">
-                                                <p class="pb-3 lh-24">Download our mobile app and
-                                                    learn on the go.</p>
-                                                <a href="#"
-                                                    class="d-block mb-2 hover-s"><img
-                                                        src="{{ asset('asset-front') }}/images/appstore.png"
-                                                        alt="App store" class="img-fluid"></a>
-                                                <a href="#" class="d-block hover-s"><img
-                                                        src="{{ asset('asset-front') }}/images/googleplay.png"
-                                                        alt="Google play store"
-                                                        class="img-fluid"></a>
-                                            </div>
-                                        </div><!-- end footer-item -->
-                                    </div><!-- end col-lg-3 -->
-                                </div><!-- end row -->
-                            </div><!-- end container-fluid -->
-                            <div class="section-block"></div>
-                            <div class="copyright-content py-4">
-                                <div class="container-fluid">
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-6">
-                                            <p class="copy-desc">&copy; 2021 Aduca. All Rights
-                                                Reserved. by <a
-                                                    href="https://techydevs.com/">TechyDevs</a>
-                                            </p>
-                                        </div><!-- end col-lg-6 -->
-                                        <div class="col-lg-6">
-                                            <div
-                                                class="d-flex flex-wrap align-items-center justify-content-end">
-                                                <ul
-                                                    class="generic-list-item d-flex flex-wrap align-items-center fs-14">
-                                                    <li class="mr-3"><a
-                                                            href="terms-and-conditions.html">Terms
-                                                            & Conditions</a></li>
-                                                    <li class="mr-3"><a
-                                                            href="privacy-policy.html">Privacy
-                                                            Policy</a></li>
-                                                </ul>
-                                                <div class="select-container select-container-sm">
-                                                    <select class="select-container-select">
-                                                        <option value="1">English</option>
-                                                        <option value="2">Deutsch</option>
-                                                        <option value="3">Español</option>
-                                                        <option value="4">Français</option>
-                                                        <option value="5">Bahasa Indonesia
-                                                        </option>
-                                                        <option value="6">Bangla</option>
-                                                        <option value="7">日本語</option>
-                                                        <option value="8">한국어</option>
-                                                        <option value="9">Nederlands</option>
-                                                        <option value="10">Polski</option>
-                                                        <option value="11">Português</option>
-                                                        <option value="12">Română</option>
-                                                        <option value="13">Русский</option>
-                                                        <option value="14">ภาษาไทย</option>
-                                                        <option value="15">Türkçe</option>
-                                                        <option value="16">中文(简体)</option>
-                                                        <option value="17">中文(繁體)</option>
-                                                        <option value="17">Hindi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div><!-- end col-lg-6 -->
-                                    </div><!-- end row -->
-                                </div><!-- end container-fluid -->
-                            </div><!-- end copyright-content -->
-                        </div><!-- end footer-area -->
+
+                        @include('frontend.dashboard.courses.show-partials.footer')
+
                     </div><!-- end course-dashboard-column -->
                     <div class="course-dashboard-sidebar-column">
                         <button class="sidebar-open" type="button"><i
@@ -2308,8 +1767,8 @@ END COURSE-DASHBOARD
         <!-- end scroll top -->
 
         <!-- Modal -->
-        <div class="modal fade modal-container" id="ratingModal" tabindex="-1"
-            role="dialog" aria-labelledby="ratingModalTitle" aria-hidden="true">
+        <div class="modal fade modal-container" id="ratingModal" tabindex="-1" role="dialog"
+            aria-labelledby="ratingModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-gray">
@@ -2344,13 +1803,13 @@ END COURSE-DASHBOARD
         </div><!-- end modal -->
 
         <!-- Modal -->
-        <div class="modal fade modal-container" id="shareModal" tabindex="-1"
-            role="dialog" aria-labelledby="shareModalTitle" aria-hidden="true">
+        <div class="modal fade modal-container" id="shareModal" tabindex="-1" role="dialog"
+            aria-labelledby="shareModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-gray">
-                        <h5 class="modal-title fs-19 font-weight-semi-bold"
-                            id="shareModalTitle">Share this course</h5>
+                        <h5 class="modal-title fs-19 font-weight-semi-bold" id="shareModalTitle">
+                            Share this course</h5>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-label="Close">
                             <span aria-hidden="true" class="la la-times"></span>
@@ -2386,8 +1845,8 @@ END COURSE-DASHBOARD
         </div><!-- end modal -->
 
         <!-- Modal -->
-        <div class="modal fade modal-container" id="reportModal" tabindex="-1"
-            role="dialog" aria-labelledby="reportModalTitle" aria-hidden="true">
+        <div class="modal fade modal-container" id="reportModal" tabindex="-1" role="dialog"
+            aria-labelledby="reportModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header border-bottom-gray">
@@ -2398,8 +1857,8 @@ END COURSE-DASHBOARD
                                 to determine whether it violates Terms of Service or Community
                                 Guidelines. If you have a question or technical issue, please
                                 contact our
-                                <a href="contact.html"
-                                    class="text-color hover-underline">Support team here</a>.
+                                <a href="contact.html" class="text-color hover-underline">Support
+                                    team here</a>.
                             </p>
                         </div>
                         <button type="button" class="close" data-dismiss="modal"
@@ -2525,7 +1984,8 @@ END COURSE-DASHBOARD
             </div><!-- end modal-dialog -->
         </div><!-- end modal -->
 
-        @include('frontend.dashboard.courses.show-partials.scripts')
     </body>
+
+    @include('frontend.dashboard.courses.show-partials.scripts')
 
 </html>

@@ -91,6 +91,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/courses', 'index')->name('user.courses.index');
         Route::get('/user/courses/{course:slug}', 'show')->name('user.courses.show');
     });
+    Route::controller(App\Http\Controllers\user\QuestionController::class)->group(function () {
+        Route::post('/user/questions', 'store')->name('user.questions.store');
+        // Route::get('/user/courses/{course:slug}', 'show')->name('user.questions.show');
+    });
 
 
     Route::get('/user/profile', [UserController::class, 'UserProfileEdit'])->name('user.profile.edit');
@@ -210,6 +214,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('orders', 'index')->name('orders.index');
         Route::get('orders/details/{id}', 'OrderDetails')->name('orders.details');
         Route::get('orders/invoice/{id}', 'OrderInvoice')->name('orders.invoice');
+    });
+
+    Route::controller(App\Http\Controllers\instructor\QuestionController::class)->prefix('/instructor')->name('instructor.')->group(function () {
+        Route::get('questions', 'index')->name('questions.index');
+        Route::get('questions/details/{question}', 'QuestionDetails')->name('question.details');
+        Route::post('/questions/replay', 'QuestionReply')->name('question.replay');
     });
 });
 

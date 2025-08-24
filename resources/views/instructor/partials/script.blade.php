@@ -76,3 +76,8 @@
         }
     }
 </script>
+
+<script>
+    new PerfectScrollbar('.chat-list');
+    new PerfectScrollbar('.chat-content');
+</script>

@@ -91,6 +91,20 @@
                 </ul>
             </li>
 
+            <li>
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                    </div>
+                    <div class="menu-title">Questions</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('instructor.questions.index') }}"><i
+                                class='bx bx-radio-circle'></i>All
+                            Questions</a>
+                    </li>
+                </ul>
+            </li>
+
 
             <li class="menu-label">Pages</li>
 

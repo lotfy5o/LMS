@@ -127,4 +127,9 @@ class Course extends Model implements HasMedia
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

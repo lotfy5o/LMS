@@ -66,8 +66,15 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        // Fetch a specific course by course_id for the authenticated user
+
         $course->load('sections');
+        $questions = $course->questions()
+            ->whereNull('parent_id')   // only main questions
+            ->with(['user', 'course.instructor', 'replies']) // eager load user and course with its instructor
+            ->latest()
+            ->get();
+
+
         return view('frontend.dashboard.courses.show', get_defined_vars());
     }
 
